@@ -1,3 +1,73 @@
 body{
-  background-color: darksalmon;
+
+
+}
+main{
+  width: 800px;
+  height: 700px;
+  margin: 0 auto;
+}
+
+input{
+  float:left;
+  background-color: #7ec0ee;
+  margin: 300px 0 auto 50px;
+  position: relative;
+  height: 30px;
+  width:200px;
+  border: 2px solid #7ec0ee;
+  border-radius: 5px;
+  outline: none;
+  padding-left: 5px;
+  font-size: 20px;
+  font-family: 'Lato', sans-serif;
+  color: white;
+}
+
+.space{
+  background-color: #7ec0ee;
+  height: 650px;
+  width: 500px;
+  top: 25px;
+  margin: 0 auto;
+  float: right;
+  z-index: 0;
+  position: relative;
+}
+
+.top{
+  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/cloud_2.png);
+  height: 100px;
+  width: 500px;
+  margin: 0 auto;
+  z-index: 1000;
+  position: absolute;
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.base{
+
+  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/ground.png);
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  width: 500px;
+  height: 100px;
+  z-index: 1000;
+  position: absolute;;
+  margin: 550px auto;
+}
+
+
+.block{
+  background-color: red;
+  position: absolute;
+  left: 0;
+  margin-top: 0;
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  z-index: 0;
 }
