@@ -112,14 +112,17 @@ wordGame.setUp = function(){
 
   this.medium = ['uidfiw', 'onwdnf', 'haionoidnveft', 'iowef', 'odnfs', 'onfwfo', 'iojfn', 'njwf', 'ojfnwe', 'jwdofwf', 'onwoff'];
 
+
+
+  this.usedWordArray = [];
 };
 
 wordGame.createBlock = function(){
   this.changeWord();
 
   clearInterval(this.timer);
-  this.speed = Math.floor(Math.random()*1000+5000);
-  this.interval = Math.floor(Math.random()*2000+500);
+  this.speed = Math.floor(Math.random()*1000+6000);
+  this.interval = Math.floor(Math.random()*3000+3000);
   this.randomTime();
 
 
@@ -129,6 +132,7 @@ wordGame.changeWord = function(){
   this.$positionX = Math.floor(Math.random()*350);
   this.$block = $('<div/>').appendTo('.space').addClass('block');
   $('.level').text('');
+  this.submitText();
   if(this.easy.length >= 85){
 
     setTimeout(function(){
@@ -136,8 +140,10 @@ wordGame.changeWord = function(){
       console.log(`easy ${wordGame.easy.length}`);
       wordGame.$easyIndex = Math.floor(Math.random()*((wordGame.easy).length));
       wordGame.$currentEasyWord = wordGame.easy[wordGame.$easyIndex];
-      wordGame.$block.css({'left': wordGame.$positionX+'px'}).text(`${wordGame.$currentEasyWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).text(`${wordGame.$currentEasyWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
       wordGame.easy.splice(wordGame.$easyIndex, 1);
+      wordGame.usedWordArray.push(wordGame.$currentEasyWord.toUpperCase());
+      console.log(wordGame.usedWordArray);
     },4000);
 
   }else if (this.medium.length > 0) {
@@ -149,8 +155,10 @@ wordGame.changeWord = function(){
       console.log(`medium ${wordGame.medium.length}`);
       wordGame.$mediumIndex = Math.floor(Math.random()*(wordGame.medium).length);
       wordGame.$currentMedWord = wordGame.medium[wordGame.$mediumIndex];
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': 'orange'}).text(`${wordGame.$currentMedWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).text(`${wordGame.$currentMedWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
+      wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
+      console.log(wordGame.usedWordArray);
     },4000);
 
   } else{
@@ -175,6 +183,25 @@ wordGame.randomTime = function(){
 //   }
 //
 // };
+
+wordGame.submitText = function(){
+
+
+  this.inputText = $('.input');
+  console.log(this.inputText.val());
+
+  if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
+    console.log('correct!');
+    this.usedWordArray.shift();
+    this.inputText.val('');
+
+  }
+
+//   if(e.keyCode === 13){
+//     console.log('hello');
+//     return false;
+//   }
+};
 
 wordGame.end = function(){
   console.log('game over');
