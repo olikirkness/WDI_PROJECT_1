@@ -126,21 +126,38 @@ wordGame.createBlock = function(){
 };
 
 wordGame.changeWord = function(){
-  this.$positionX = Math.floor(Math.random()*300);
+  this.$positionX = Math.floor(Math.random()*350);
   this.$block = $('<div/>').appendTo('.space').addClass('block');
+  $('.level').text('');
   if(this.easy.length >= 85){
-    console.log(`easy ${this.easy.length}`);
-    this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
-    this.$block.css({'left': this.$positionX+'px'}).text(`${this.easy[this.$easyIndex]}`).animate({'margin-top': '660px'},this.speed);
-    this.easy.splice(this.$easyIndex, 1);
+
+    setTimeout(function(){
+
+      console.log(`easy ${wordGame.easy.length}`);
+      wordGame.$easyIndex = Math.floor(Math.random()*((wordGame.easy).length));
+      wordGame.$currentEasyWord = wordGame.easy[wordGame.$easyIndex];
+      wordGame.$block.css({'left': wordGame.$positionX+'px'}).text(`${wordGame.$currentEasyWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
+      wordGame.easy.splice(wordGame.$easyIndex, 1);
+    },4000);
+
   }else if (this.medium.length > 0) {
-    console.log(`medium ${this.medium.length}`);
-    this.$mediumIndex = Math.floor(Math.random()*(this.medium).length-1);
-    this.$block.css({'left': this.$positionX+'px'}).text(`${this.medium[this.$mediumIndex]}`).animate({'margin-top': '660px'},this.speed);
-    this.medium.splice(this.$mediumIndex, 1);
+
+
+
+    setTimeout(function(){
+      console.log(wordGame.$mediumIndex);
+      console.log(`medium ${wordGame.medium.length}`);
+      wordGame.$mediumIndex = Math.floor(Math.random()*(wordGame.medium).length);
+      wordGame.$currentMedWord = wordGame.medium[wordGame.$mediumIndex];
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': 'orange'}).text(`${wordGame.$currentMedWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
+      wordGame.medium.splice(wordGame.$mediumIndex, 1);
+    },4000);
+
   } else{
     console.log('finished');
     this.end();
+    clearInterval(this.timer);
+
   }
 };
 
