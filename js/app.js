@@ -100,9 +100,10 @@
 
 //Code______________________________________________________
 
-// , 'rat', 'fat', 'car', 'bus', 'hut', 'but', 'nut', 'cut'
 
 var wordGame = wordGame || {};
+
+//SetUp --- This function should define the inititial state for the game.
 
 wordGame.setUp = function(){
   this.randomTime();
@@ -112,9 +113,16 @@ wordGame.setUp = function(){
 
   this.medium = ['uidfiw', 'onwdnf', 'haionoidnveft', 'iowef', 'odnfs', 'onfwfo', 'iojfn', 'njwf', 'ojfnwe', 'jwdofwf', 'onwoff'];
 
-
-
   this.usedWordArray = [];
+};
+
+//RandomTime --- This function defines
+
+wordGame.randomTime = function(){
+  this.timer = setInterval(function () {
+    wordGame.createBlock();
+    // wordGame.positionCheck();
+  }, wordGame.interval);
 };
 
 wordGame.createBlock = function(){
@@ -124,12 +132,12 @@ wordGame.createBlock = function(){
   this.speed = Math.floor(Math.random()*1000+6000);
   this.interval = Math.floor(Math.random()*3000+3000);
   this.randomTime();
-
+  this.$positionX = Math.floor(Math.random()*350);
 
 };
 
 wordGame.changeWord = function(){
-  this.$positionX = Math.floor(Math.random()*350);
+
   this.$block = $('<div/>').appendTo('.space').addClass('block');
   $('.level').text('');
   this.submitText();
@@ -169,12 +177,7 @@ wordGame.changeWord = function(){
   }
 };
 
-wordGame.randomTime = function(){
-  this.timer = setInterval(function () {
-    wordGame.createBlock();
-    // wordGame.positionCheck();
-  }, wordGame.interval);
-};
+
 
 // wordGame.positionCheck = function(){
 //   if ($('div.block').offset().top >= 300){
@@ -194,6 +197,7 @@ wordGame.submitText = function(){
     console.log('correct!');
     this.usedWordArray.shift();
     this.inputText.val('');
+    this.$block.css('display', 'none');
 
   }
 
