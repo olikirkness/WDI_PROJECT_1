@@ -106,12 +106,20 @@ var wordGame = wordGame || {};
 //SetUp --- This function should define the inititial state for the game.
 
 wordGame.setUp = function(){
-  this.randomTime();
+
+  this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
+
+  this.$startButton.on('click', function(){
+    wordGame.randomTime();
+    wordGame.$startButton.remove();
+  });
+
+
   this.interval = 1000;
   this.speed = 5000;
   this.easy = ['all','am','and','at','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','do','dog','fat','for','fun','get','go','good','got','had','hat','he','hen','here','him','his','home','hot','if','in','into','is','it','its','let','like','look','man','may','me','mom','my','no','not','of','oh','old','on','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','so','stop','sun','ten','the','this','to','top','toy','two','up','us','was','we','will','yes','you'];
 
-  this.medium = ['uidfiw', 'onwdnf', 'haionoidnveft', 'iowef', 'odnfs', 'onfwfo', 'iojfn', 'njwf', 'ojfnwe', 'jwdofwf', 'onwoff'];
+  this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after', 'santa', 'women'];
 
   this.usedWordArray = [];
   this.blockArray = [];
@@ -121,25 +129,28 @@ wordGame.setUp = function(){
 //RandomTime --- This function defines
 
 wordGame.randomTime = function(){
-  this.speed = Math.floor(Math.random()*1000+4000);
+  this.speed = Math.floor(Math.random()*1000+5000);
   this.interval = Math.floor(Math.random()*2000+4000);
   this.$positionX = Math.floor(Math.random()*350);
-  this.timer = setTimeout(function () {
+  this.positionCheck();
 
+  this.timer = setInterval(function () {
+    clearInterval(this.timer);
     wordGame.createBlock();
-    // wordGame.positionCheck();
+
   }, wordGame.interval);
+
+  return this.randomTime;
 };
 
 wordGame.createBlock = function(){
-
 
 
   console.log(this.$blockId);
   $('.level').text('');
 
   this.giveAttribute();
-
+  return this.createBlock;
 
 };
 
@@ -150,9 +161,12 @@ wordGame.giveAttribute = function(){
   this.submitText();
 
 
+
   if(this.easy.length >= 88){
 
     setTimeout(function(){
+      wordGame.$blockId++;
+      wordGame.positionCheck();
       wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
       console.log(wordGame.$blockId);
       console.log(`easy ${wordGame.easy.length}`);
@@ -165,28 +179,29 @@ wordGame.giveAttribute = function(){
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
       console.log(wordGame.usedWordArray);
       return;
-    },4000);
+    },3000);
 
   }else if (this.medium.length > 0) {
 
 
 
     setTimeout(function(){
-      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${this.$blockId} block`);
-
+      this.positionCheck();
+      this.$blockId++;
+      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
       console.log(wordGame.$mediumIndex);
       console.log(`medium ${wordGame.medium.length}`);
       wordGame.$mediumIndex = Math.floor(Math.random()*(wordGame.medium).length);
       wordGame.$currentMedWord = wordGame.medium[wordGame.$mediumIndex];
-      wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
-      wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).text(`${wordGame.$currentMedWord}`).animate({'margin-top': '660px'},wordGame.speed);
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
+      wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
+      wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
 
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
       console.log(wordGame.usedWordArray);
       return;
 
-    },4000);
+    },2000);
 
 
   } else{
@@ -197,18 +212,27 @@ wordGame.giveAttribute = function(){
 
   }
 
+  return this.giveAttribute;
 
 };
 
 
 
-// wordGame.positionCheck = function(){
-//   if ($('div.block').offset().top >= 300){
-//     console.log('hello');
-//     this.$block.css('background-color', 'blue');
-//   }
-//
-// };
+wordGame.positionCheck = function(){
+
+  this.check = setInterval(function(){
+    if ($('.block').offset().top >= 600){
+      wordGame.end();
+      wordGame.$block.css('background-color', 'blue');
+      $(`.block`).remove();
+      clearInterval(wordGame.check);
+    }
+  }, 500);
+
+  return this.positionCheck;
+
+
+};
 
 wordGame.submitText = function(){
   console.log(this.$blockId);
@@ -216,13 +240,13 @@ wordGame.submitText = function(){
   console.log(this.inputText.val());
 
   if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
-    $(`.${this.$blockId}.block`).remove();
+    $(`.${this.$blockId}`).remove();
     console.log('correct!');
     this.usedWordArray.shift();
     this.inputText.val('');
     console.log(this.usedWordArray);
-    this.$blockId++;
-    console.log(`.${this.$blockId}`);
+
+    console.log(`.${this.$blockId+1}`);
   }
 
 //   if(e.keyCode === 13){
@@ -232,8 +256,14 @@ wordGame.submitText = function(){
 };
 
 wordGame.end = function(){
+
   console.log('game over');
-  clearInterval(this.timer);
+  clearInterval(wordGame.timer);
+  clearInterval(wordGame.check);
+  this.setUp();
+
+  // return wordGame.createBlock;
+  // return wordGame.giveAttribute;
   return;
 };
 
