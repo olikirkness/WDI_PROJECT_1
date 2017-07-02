@@ -114,44 +114,57 @@ wordGame.setUp = function(){
   this.medium = ['uidfiw', 'onwdnf', 'haionoidnveft', 'iowef', 'odnfs', 'onfwfo', 'iojfn', 'njwf', 'ojfnwe', 'jwdofwf', 'onwoff'];
 
   this.usedWordArray = [];
+  this.blockArray = [];
+  this.$blockId = 0;
 };
 
 //RandomTime --- This function defines
 
 wordGame.randomTime = function(){
-  this.timer = setInterval(function () {
+  this.speed = Math.floor(Math.random()*1000+4000);
+  this.interval = Math.floor(Math.random()*2000+4000);
+  this.$positionX = Math.floor(Math.random()*350);
+  this.timer = setTimeout(function () {
+
     wordGame.createBlock();
     // wordGame.positionCheck();
   }, wordGame.interval);
 };
 
 wordGame.createBlock = function(){
-  this.changeWord();
 
-  clearInterval(this.timer);
-  this.speed = Math.floor(Math.random()*1000+6000);
-  this.interval = Math.floor(Math.random()*3000+3000);
-  this.randomTime();
-  this.$positionX = Math.floor(Math.random()*350);
+
+
+  console.log(this.$blockId);
+  $('.level').text('');
+
+  this.giveAttribute();
+
 
 };
 
-wordGame.changeWord = function(){
+wordGame.giveAttribute = function(){
+  clearInterval(this.timer);
 
-  this.$block = $('<div/>').appendTo('.space').addClass('block');
-  $('.level').text('');
+  this.randomTime();
   this.submitText();
-  if(this.easy.length >= 85){
+
+
+  if(this.easy.length >= 88){
 
     setTimeout(function(){
-
+      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
+      console.log(wordGame.$blockId);
       console.log(`easy ${wordGame.easy.length}`);
       wordGame.$easyIndex = Math.floor(Math.random()*((wordGame.easy).length));
       wordGame.$currentEasyWord = wordGame.easy[wordGame.$easyIndex];
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).text(`${wordGame.$currentEasyWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentEasyWord.toUpperCase());
+      wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
+
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
       console.log(wordGame.usedWordArray);
+      return;
     },4000);
 
   }else if (this.medium.length > 0) {
@@ -159,22 +172,32 @@ wordGame.changeWord = function(){
 
 
     setTimeout(function(){
+      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${this.$blockId} block`);
+
       console.log(wordGame.$mediumIndex);
       console.log(`medium ${wordGame.medium.length}`);
       wordGame.$mediumIndex = Math.floor(Math.random()*(wordGame.medium).length);
       wordGame.$currentMedWord = wordGame.medium[wordGame.$mediumIndex];
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).text(`${wordGame.$currentMedWord.toUpperCase()}`).animate({'margin-top': '660px'},wordGame.speed);
-      wordGame.medium.splice(wordGame.$mediumIndex, 1);
+      wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
       wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).text(`${wordGame.$currentMedWord}`).animate({'margin-top': '660px'},wordGame.speed);
+      wordGame.medium.splice(wordGame.$mediumIndex, 1);
+
       console.log(wordGame.usedWordArray);
+      return;
+
     },4000);
+
 
   } else{
     console.log('finished');
     this.end();
     clearInterval(this.timer);
+    return;
 
   }
+
+
 };
 
 
@@ -188,17 +211,18 @@ wordGame.changeWord = function(){
 // };
 
 wordGame.submitText = function(){
-
-
+  console.log(this.$blockId);
   this.inputText = $('.input');
   console.log(this.inputText.val());
 
   if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
+    $(`.${this.$blockId}.block`).remove();
     console.log('correct!');
     this.usedWordArray.shift();
     this.inputText.val('');
-    this.$block.css('display', 'none');
-
+    console.log(this.usedWordArray);
+    this.$blockId++;
+    console.log(`.${this.$blockId}`);
   }
 
 //   if(e.keyCode === 13){
@@ -210,6 +234,7 @@ wordGame.submitText = function(){
 wordGame.end = function(){
   console.log('game over');
   clearInterval(this.timer);
+  return;
 };
 
 $(wordGame.setUp.bind(wordGame));
