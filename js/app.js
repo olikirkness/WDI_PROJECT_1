@@ -116,54 +116,68 @@ wordGame.setUp = function(){
   });
 };
 
-wordGame.newGame = function(){
-  clearInterval(this.check);
-  clearInterval(this.timer);
-  clearTimeout(this.easyTimer);
-  clearTimeout(this.medTimer);
-  clearTimeout(this.hardTimer);
+//NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 
-  $(`.block`).remove();
-  this.interval = 1000;
-  this.speed = 5000;
+wordGame.newGame = function(){
+
+//defining variables that will be available globally and will later be randomised
+  this.interval = 0;
+  this.speed = 0;
+  this.score = 0;
+
+//Set the score back to 0 if it isn't already
+  $('.score').text(`${this.score}`);
+
+//Define the arrays of words in each category. (as these get pulled into the DOM at random, reduce in size, therefore need to be declared before the game gets restarted.)
   this.easy = ['all','am','and','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','dog','fat','for','fun','get','good','got','had','hat','hen','here','him','his','home','hot','into','let','like','look','man','may','mum','not','old','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','stop','sun','ten','the','this','top','toy','two','was','will','yes','you'];
-  console.log(this.easy.length);
 
   this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after', 'santa', 'women'];
 
   this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES', 'ENACTOR'
   ];
 
+//Use this bonus array between levels - using different logic.
   this.bonus = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
+//Ensuring the arrays are empty
   this.usedBonusArray = [];
   this.usedWordArray = [];
-  this.blockArray = [];
 
+// Envoke the randomTime function randomises the values for speed, interval and position
   this.randomTime();
-
-  this.score = 0;
-  $('.score').text(`${this.score}`);
 
   return this.newGame;
 
 };
 
-
+//the function randomTime is a function to assign random values to the variables.
 wordGame.randomTime = function(){
-  this.speed = Math.floor(Math.random()*2000+10000);
-  this.interval = Math.floor(Math.random()*2000+1000);
-  this.$positionX = Math.floor(Math.random()*350);
-  clearInterval(this.check);
-  this.timer = setInterval(function () {
 
-    clearInterval(this.timer);
+//speed can be anything between 10000 and 12000
+  this.speed = Math.floor(Math.random()*2000+10000);
+//interval can be anything between 1000 and 30000
+  this.interval = Math.floor(Math.random()*2000+1000);
+//the X axis position of the blocks can vary from 0 to 350
+  this.$positionX = Math.floor(Math.random()*350);
+
+
+
+//timer uses the generated value for interval to intermittently introduce a new block
+//TEST THIS USING SET TIMEOUT
+  this.timer = setTimeout(function () {
+
     wordGame.giveAttribute();
 
   }, wordGame.interval);
 
+  //ensure the check function is cleared.
+  clearInterval(this.check);
+
   return this.randomTime;
 };
+
+
+
 
 wordGame.giveAttribute = function(){
 
@@ -298,7 +312,7 @@ wordGame.end = function(){
   $('.cover').fadeIn(2000);
   this.$block.remove();
   clearInterval(wordGame.check);
-  clearInterval(wordGame.timer);
+  clearTimeout(wordGame.timer);
   clearTimeout(wordGame.easyTimer);
   clearTimeout(wordGame.medTimer);
   clearTimeout(wordGame.hardTimer);
