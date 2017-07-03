@@ -110,6 +110,7 @@ wordGame.setUp = function(){
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
 
   this.$startButton.on('click', function(){
+    $('.cover').fadeOut(2000);
     wordGame.newGame();
     wordGame.$startButton.remove();
   });
@@ -120,7 +121,8 @@ wordGame.newGame = function(){
 
   this.interval = 1000;
   this.speed = 5000;
-  this.easy = ['all','am','and','at','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','do','dog','fat','for','fun','get','go','good','got','had','hat','he','hen','here','him','his','home','hot','if','in','into','is','it','its','let','like','look','man','may','me','mom','my','no','not','of','oh','old','on','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','so','stop','sun','ten','the','this','to','top','toy','two','up','us','was','we','will','yes','you'];
+  this.easy = ['all','am','and','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','dog','fat','for','fun','get','good','got','had','hat','hen','here','him','his','home','hot','into','let','like','look','man','may','mum','not','old','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','stop','sun','ten','the','this','top','toy','two','was','will','yes','you'];
+  console.log(this.easy.length);
 
   this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after', 'santa', 'women'];
 
@@ -141,29 +143,18 @@ wordGame.newGame = function(){
 
 
 wordGame.randomTime = function(){
-  this.speed = Math.floor(Math.random()*2000+7000);
+  this.speed = Math.floor(Math.random()*3000+5000);
   this.interval = Math.floor(Math.random()*2000+2000);
   this.$positionX = Math.floor(Math.random()*350);
   clearInterval(this.check);
   this.timer = setInterval(function () {
 
     clearInterval(this.timer);
-    wordGame.createBlock();
+    wordGame.giveAttribute();
 
   }, wordGame.interval);
 
   return this.randomTime;
-};
-
-wordGame.createBlock = function(){
-
-
-  console.log(this.$blockId);
-  $('.level').text('');
-
-  this.giveAttribute();
-  return this.createBlock;
-
 };
 
 wordGame.giveAttribute = function(){
@@ -173,7 +164,7 @@ wordGame.giveAttribute = function(){
   this.submitText();
 
 
-  if(this.easy.length >= 88){
+  if(this.easy.length >= 62){
 
     setTimeout(function(){
       wordGame.positionCheck();
@@ -279,14 +270,17 @@ wordGame.submitText = function(){
 };
 
 wordGame.end = function(){
+  $('.cover').fadeIn(2000);
 
   console.log('game over');
   clearInterval(wordGame.timer);
   clearInterval(wordGame.check);
   this.$gameOver = $('<div id = "over"/>').appendTo('.startBtn').text('GAME OVER');
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('PLAY AGAIN');
+  // $('.cover').css({'background-color': 'rgba(179, 179, 179, 0.83)', 'position': 'relative', 'z-index': '1000'});
 
   this.$startButton.on('click', function(){
+    $('.cover').fadeOut(2000);
     wordGame.newGame();
     wordGame.$startButton.remove();
     wordGame.$gameOver.remove();
