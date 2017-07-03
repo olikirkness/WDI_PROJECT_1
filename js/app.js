@@ -126,15 +126,14 @@ wordGame.setUp = function(){
   this.$blockId = 0;
 };
 
-//RandomTime --- This function defines
 
 wordGame.randomTime = function(){
-  this.speed = Math.floor(Math.random()*1000+5000);
-  this.interval = Math.floor(Math.random()*2000+4000);
+  this.speed = Math.floor(Math.random()*2000+7000);
+  this.interval = Math.floor(Math.random()*2000+2000);
   this.$positionX = Math.floor(Math.random()*350);
-  this.positionCheck();
-
+  clearInterval(this.check);
   this.timer = setInterval(function () {
+
     clearInterval(this.timer);
     wordGame.createBlock();
 
@@ -175,19 +174,17 @@ wordGame.giveAttribute = function(){
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentEasyWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
-
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
       console.log(wordGame.usedWordArray);
       return;
-    },3000);
+    },2000);
 
   }else if (this.medium.length > 0) {
 
 
-
     setTimeout(function(){
-      this.positionCheck();
-      this.$blockId++;
+      wordGame.$blockId++;
+      wordGame.positionCheck();
       wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
       console.log(wordGame.$mediumIndex);
       console.log(`medium ${wordGame.medium.length}`);
@@ -197,7 +194,7 @@ wordGame.giveAttribute = function(){
       wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
 
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '620px'},wordGame.speed);
       console.log(wordGame.usedWordArray);
       return;
 
@@ -221,10 +218,9 @@ wordGame.giveAttribute = function(){
 wordGame.positionCheck = function(){
 
   this.check = setInterval(function(){
-    if ($('.block').offset().top >= 600){
+    if ($(`.block`).offset().top >= 600){
       wordGame.end();
-      wordGame.$block.css('background-color', 'blue');
-      $(`.block`).remove();
+      $(`div.block`).remove();
       clearInterval(wordGame.check);
     }
   }, 500);
@@ -240,19 +236,14 @@ wordGame.submitText = function(){
   console.log(this.inputText.val());
 
   if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
-    $(`.${this.$blockId}`).remove();
+    $(`.${this.$blockId-1}`).remove();
     console.log('correct!');
     this.usedWordArray.shift();
     this.inputText.val('');
     console.log(this.usedWordArray);
 
-    console.log(`.${this.$blockId+1}`);
+    console.log(`.${this.$blockId}`);
   }
-
-//   if(e.keyCode === 13){
-//     console.log('hello');
-//     return false;
-//   }
 };
 
 wordGame.end = function(){
