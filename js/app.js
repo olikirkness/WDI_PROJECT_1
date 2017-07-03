@@ -110,9 +110,12 @@ wordGame.setUp = function(){
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
 
   this.$startButton.on('click', function(){
-    wordGame.randomTime();
+    wordGame.newGame();
     wordGame.$startButton.remove();
   });
+};
+
+wordGame.newGame = function(){
 
 
   this.interval = 1000;
@@ -126,6 +129,14 @@ wordGame.setUp = function(){
 
   this.usedWordArray = [];
   this.blockArray = [];
+
+  this.randomTime();
+
+  this.score = 0;
+  $('.score').text(`${this.score}`);
+
+
+
 };
 
 
@@ -249,6 +260,10 @@ wordGame.submitText = function(){
   console.log(this.inputText.val());
 
   if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
+
+    this.score++;
+    $('.score').text(`${this.score}`);
+
     // $(`.${this.$blockId-1}`).remove();
     $('.block').first().remove();
     // // $(`.${this.$blockId}`).remove();
@@ -268,8 +283,16 @@ wordGame.end = function(){
   console.log('game over');
   clearInterval(wordGame.timer);
   clearInterval(wordGame.check);
-  this.setUp();
+  this.$gameOver = $('<div id = "over"/>').appendTo('.startBtn').text('GAME OVER');
+  this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('PLAY AGAIN');
 
+  this.$startButton.on('click', function(){
+    wordGame.newGame();
+    wordGame.$startButton.remove();
+    wordGame.$gameOver.remove();
+
+    this.setUp();
+  });
   // return wordGame.createBlock;
   // return wordGame.giveAttribute;
   return;
