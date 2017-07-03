@@ -117,6 +117,11 @@ wordGame.setUp = function(){
 };
 
 wordGame.newGame = function(){
+  clearInterval(this.check);
+  clearInterval(this.timer);
+  clearTimeout(this.easyTimer);
+  clearTimeout(this.medTimer);
+  clearTimeout(this.hardTimer);
 
   $(`.block`).remove();
   this.interval = 1000;
@@ -129,8 +134,9 @@ wordGame.newGame = function(){
   this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES', 'ENACTOR'
   ];
 
-  this.bonus = ['a', 'b']
+  this.bonus = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
+  this.usedBonusArray = [];
   this.usedWordArray = [];
   this.blockArray = [];
 
@@ -160,69 +166,81 @@ wordGame.randomTime = function(){
 };
 
 wordGame.giveAttribute = function(){
+
   clearInterval(this.timer);
 
   this.randomTime();
   this.submitText();
 
 
-  if(this.easy.length >= 62){
+  if(this.easy.length >= 68){
 
     this.easyTimer = setTimeout(function(){
       wordGame.positionCheck();
-      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
-      console.log(wordGame.$blockId);
-      console.log(`easy ${wordGame.easy.length}`);
+      wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
       wordGame.$easyIndex = Math.floor(Math.random()*((wordGame.easy).length));
       wordGame.$currentEasyWord = wordGame.easy[wordGame.$easyIndex];
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentEasyWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
-      console.log(wordGame.usedWordArray);
       return;
-    },2000);
+    },1000);
 
-  }else if (this.medium.length >= 43) {
+  }
+  // else if(this.bonus.length >15){
+  //
+  //   this.bonusText();
+  //   this.easyTimer = setTimeout(function(){
+  //
+  //     wordGame.$bonusIndex = Math.floor(Math.random()*((wordGame.bonus).length));
+  //     wordGame.$currentBonusWord = wordGame.bonus[wordGame.$bonusIndex];
+  //     wordGame.bonus.splice(wordGame.$bonusIndex, 1);
+  //     wordGame.usedBonusArray.push(wordGame.$currentBonusWord.toUpperCase());
+  //     wordGame.$blockWord = wordGame.usedBonusArray[wordGame.usedBonusArray.length-1];
+  //     wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockWord} block`);
+  //     wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': 'black'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},10000);
+  //     return;
+  //   },3000);
+  // }
+  else if (this.medium.length >= 43) {
 
 
     this.medTimer = setTimeout(function(){
-
+      clearInterval(this.check);
       wordGame.positionCheck();
-      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
-      console.log(wordGame.$mediumIndex);
-      console.log(`medium ${wordGame.medium.length}`);
+      wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
+
       wordGame.$mediumIndex = Math.floor(Math.random()*(wordGame.medium).length);
       wordGame.$currentMedWord = wordGame.medium[wordGame.$mediumIndex];
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '640px'},wordGame.speed);
-      console.log(wordGame.usedWordArray);
+
       return;
 
-    },3000);
+    },2000);
 
 
   } else if (this.hard.length > 0) {
 
 
     this.hardTimer = setTimeout(function(){
-
+      clearInterval(this.check);
       wordGame.positionCheck();
-      wordGame.$block = $('<div/>').appendTo('.space').addClass(`${wordGame.$blockId} block`);
+      wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
       console.log(`hard ${wordGame.hard.length}`);
       wordGame.$hardIndex = Math.floor(Math.random()*(wordGame.hard).length);
       wordGame.$currentHardWord = wordGame.hard[wordGame.$hardIndex];
       wordGame.hard.splice(wordGame.$hardIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentHardWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
-
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F45D01'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '640px'},wordGame.speed);
       console.log(wordGame.usedWordArray);
       return;
 
-    },3000);
+    },2500);
 
   }
 
@@ -235,18 +253,29 @@ wordGame.giveAttribute = function(){
 wordGame.positionCheck = function(){
 
   this.check = setInterval(function(){
-    if ($('.block').offset().top >= 560){
+    if ($('.block').offset().top >= 540){
       $(`.block`).remove();
       wordGame.end();
-
-
     }
   }, 100);
-
-  // return this.positionCheck;
-
-
+  return;
 };
+
+// wordGame.bonusText = function(){
+//   this.inputText = $('.input');
+//
+//
+//   if(this.inputText.val().toUpperCase() === this.usedBonusArray[0]){
+//     $(`#${wordGame.$blockWord}`).remove();
+//     this.score++;
+//     $('.score').text(`${this.score}`);
+//
+//     this.usedBonusArray.shift();
+//     this.inputText.val('');
+//
+//   }
+// };
+
 
 wordGame.submitText = function(){
   console.log(this.$blockId);
@@ -254,36 +283,26 @@ wordGame.submitText = function(){
   console.log(this.inputText.val());
 
   if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
-
     this.score++;
     $('.score').text(`${this.score}`);
-
-    // $(`.${this.$blockId-1}`).remove();
     $('.block').first().remove();
-    // // $(`.${this.$blockId}`).remove();
-    // $('.space').children().first().remove();
-
     console.log('correct!');
     this.usedWordArray.shift();
     this.inputText.val('');
     console.log(this.usedWordArray);
 
-    console.log(`.${this.$blockId}`);
   }
 };
 
 wordGame.end = function(){
   $('.cover').fadeIn(2000);
-  $(`.block`).clearQueue();
   this.$block.remove();
+  clearInterval(wordGame.check);
+  clearInterval(wordGame.timer);
   clearTimeout(wordGame.easyTimer);
   clearTimeout(wordGame.medTimer);
   clearTimeout(wordGame.hardTimer);
-  clearInterval(wordGame.check);
-  clearInterval(wordGame.timer);
 
-
-  console.log('game over');
   this.$gameOver = $('<div id = "over"/>').appendTo('.startBtn').text('GAME OVER');
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('PLAY AGAIN');
 
