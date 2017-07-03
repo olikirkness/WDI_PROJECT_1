@@ -91,7 +91,7 @@ wordGame.randomTime = function(){
   //interval can be anything between 1000 and 30000
   this.interval = Math.floor(Math.random()*2000+1000);
   //the X axis position of the blocks can vary from 0 to 350
-  this.$positionX = Math.floor(Math.random()*350);
+  this.$positionX = Math.floor(Math.random()*($(window).width()-150));
 
   //timer uses the generated value for interval to intermittently introduce a new block
   this.timer = setTimeout(function () {
@@ -123,9 +123,8 @@ wordGame.createBlock = function(){
     this.easy.splice(this.$easyIndex, 1);
     this.usedWordArray.push(this.$currentEasyWord.toUpperCase());
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
-    this.$block.css({'left': this.$positionX+'px', 'background-color': '#F7CB15'}).html(`${this.$blockWord}`).animate({'margin-top': '660px'},this.speed);
+    this.$block.css({'left': this.$positionX+'px', 'background-color': '#F7CB15'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.speed);
     return;
-
 
   }
   // else if(this.bonus.length >15){
@@ -158,7 +157,7 @@ wordGame.createBlock = function(){
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '640px'},wordGame.speed);
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.speed);
 
       return;
 
@@ -178,7 +177,7 @@ wordGame.createBlock = function(){
       wordGame.hard.splice(wordGame.$hardIndex, 1);
       wordGame.usedWordArray.push(wordGame.$currentHardWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F45D01'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '640px'},wordGame.speed);
+      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F45D01'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.speed);
       console.log(wordGame.usedWordArray);
       return;
 
@@ -197,7 +196,7 @@ wordGame.positionCheck = function(){
   this.check = setInterval(function(){
     if($('.block').length === 0){
       clearInterval(this.check);
-    }else if ($('.block').offset().top >= 540){
+    }else if ($('.block').offset().top >= `${$(window).height()-100}`){
       $(`.block`).remove();
       wordGame.end();
     }
