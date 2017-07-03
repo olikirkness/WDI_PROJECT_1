@@ -40,6 +40,8 @@ wordGame.setUp = function(){
   //create a new button on start up called 'start' that if clicked envokes 'newgame'
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
 
+  this.scoreArray = [];
+
   this.$startButton.on('click', function(){
     //onclick, the start button envokes newgame and fades the grey cover.
     $('.cover').fadeOut(2000);
@@ -114,7 +116,7 @@ wordGame.createBlock = function(){
   this.submitText();
 
 
-  if(this.easy.length >= 68){
+  if(this.easy.length >= 60){
 
     this.positionCheck();
     this.$block = $('<div/>').appendTo('.space').addClass(`block`);
@@ -144,7 +146,7 @@ wordGame.createBlock = function(){
   //   },3000);
   //
   // }
-  else if (this.medium.length >= 43) {
+  else if (this.medium.length >= 35) {
 
 
     this.medTimer = setTimeout(function(){
@@ -196,11 +198,11 @@ wordGame.positionCheck = function(){
   this.check = setInterval(function(){
     if($('.block').length === 0){
       clearInterval(this.check);
-    }else if ($('.block').offset().top >= `${$(window).height()-100}`){
+    }else if ($('.block').offset().top >= `${$(window).height()-120}`){
       $(`.block`).remove();
       wordGame.end();
     }
-  }, 100);
+  }, 300);
   return;
 };
 
@@ -224,11 +226,14 @@ wordGame.positionCheck = function(){
 
 
 wordGame.submitText = function(){
+  $('.block').first().css('background-color', 'red');
+
   console.log(this.$blockId);
   this.inputText = $('.input');
   console.log(this.inputText.val());
 
   if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
+    new Audio('sounds/Blop-Mark_DiAngelo-79054334.wav').play();
     this.score++;
     $('.score').text(`${this.score}`);
     $('.block').first().remove();
@@ -249,14 +254,20 @@ wordGame.end = function(){
   clearTimeout(wordGame.medTimer);
   clearTimeout(wordGame.hardTimer);
 
+  this.scoreArray.push(this.score);
+  this.highScore = Math.max.apply(Math,this.scoreArray);
+
   this.$gameOver = $('<div id = "over"/>').appendTo('.startBtn').text('GAME OVER');
+  this.$highScore = $('<div id = "highScore"/>').appendTo('.startBtn').text(`HIGH SCORE: ${this.highScore}`);
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('PLAY AGAIN');
+
 
   this.$startButton.on('click', function(){
     $('.cover').fadeOut(2000);
     wordGame.newGame();
     wordGame.$startButton.remove();
     wordGame.$gameOver.remove();
+    wordGame.$highScore.remove();
   });
 
   return this.end;

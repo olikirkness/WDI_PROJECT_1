@@ -1,22 +1,8 @@
-body{
-
+body, html{
+  height: 100%;
 background-color: #E0E2DB;
 }
-/*header{
-  height:40px;
-  width:100%;
-  background-color: #E0E2DB;;
-  position: absolute;
-  z-index: 1;
-}*/
 
-/*footer{
-  height:40px;
-  width:100%;
-  background-color: #E0E2DB;
-  position: absolute;
-  z-index: 10;
-}*/
 main{
   width: 100%;
   height: 100%;
@@ -28,7 +14,7 @@ main{
   background-color: rgba(179, 179, 179, 0.8);
   position: absolute;
   z-index: 100;
-  height: 650px;
+  height: 100%;
   width: 100%;
   margin-left:0;
   margin-top:0
@@ -37,7 +23,7 @@ main{
 input{
   float:left;
   background-color: white;
-  margin-top: 600px;
+  bottom: 50px;
   margin-left: -100px;
   position: absolute;
   z-index: 2;
@@ -46,7 +32,6 @@ input{
   border: 2px solid #F45D01;
   border-radius: 5px;
   outline: none;
-
   font-size: 25px;
   font-family: 'Lato', sans-serif;
   color: #F45D01;
@@ -55,11 +40,10 @@ input{
 
 
 .startBtn{
-  height: 50px;
   width: 100%;
-  margin-top: 240px;
+  top: 30%;
   position: absolute;
-  z-index: 1000;
+  z-index: 10000;
   background-color: none;
   color: white;
   font-size: 40px;
@@ -78,6 +62,7 @@ input{
 }
 #over{
   color: #F45D01;
+  top: 20% !important;
 }
 .score{
   color: #F45D01;
@@ -88,7 +73,7 @@ p{
   z-index: 2;
   font-family: 'Lato', sans-serif;
   color: black;
-  margin-top: 520px;
+  bottom: 130px;
   width: 100px;
   text-align: center;
   margin-left: 20px;
@@ -98,7 +83,7 @@ p{
 
 .space{
   background-color: #7ec0ee;
-  height: 650px;
+  height: 100%;
   width: 100%;
   top: 0px;
   margin: 0 auto;
@@ -109,9 +94,9 @@ p{
 
 .top{
   background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/cloud_2.png);
-  height: 130px;
+  height: 110px;
   width: 100%;
-  margin: 0 auto;
+  margin-top: 0;
   z-index: 1000;
   position: absolute;
   background-size: cover;
@@ -126,11 +111,10 @@ p{
   background-position: bottom;
   background-repeat: no-repeat;
   width: 100%;
-  height: 150px;
+  height: 200px;
   z-index: 1000;
   position: absolute;;
-  margin: 535px auto;
-  margin-bottom: -30px;
+  bottom: 0;
 }
 
 
@@ -148,13 +132,9 @@ p{
   font-size: 18px;
 }
 
-/*.level{
-  color: black;
-  font-size: 30px;
-  z-index: 1;
-  font-family: 'Lato', sans-serif;
-  position: absolute;
-  width: 200px;
-  margin:300px 150px;
-  text-align: center;
-}*/
+#highScore{
+
+  margin-top: 50px;
+
+
+}
