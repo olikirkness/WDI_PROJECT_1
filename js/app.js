@@ -1,73 +1,3 @@
-// $(init);
-//
-//
-//
-// function init(){
-//   console.log('');
-//   createBlock();
-// }
-//
-//
-//
-//
-// function createBlock(){
-//
-//   const $positionX = Math.floor(Math.random()*300);
-//   const $block = $('<div/>').appendTo('.space').addClass('block');
-//   console.log($positionX);
-//   $block.css({'left': $positionX+'px'}).text('hello').animate({'margin-top': '460px'},5000);
-//   test();
-//
-// }
-//
-// function test(){
-//   checkBlockPosition();
-// }
-//
-//
-//
-// function checkBlockPosition(){
-//
-//
-//
-//   var $blockPosition = $('div.block').offset();
-//
-//
-// setInterval(function(){
-//     $('p').text('top' + $blockPosition.top);
-//     if( $blockPosition.top > 209){
-//       this.remove();
-//       next();
-//       clear();
-//       console.log('hello')
-//     }
-//     },100);
-//
-//
-//
-//   $('.block').on('click', function(){
-//     $(this).remove();
-//   });
-//
-//   function next(){
-//     if ($('div.block').length ){
-//       console.log('still here');
-//
-//     }else {
-//       this.remove();
-//       clear();
-//       console.log('hello');
-//     }
-//   }
-//
-//   function clear(){
-//     clearInterval();
-//   }
-//
-// }
-
-
-
 // OutLine__________________________________________________
 
 //Blocks to dynamically appear out of frame, and fall vertically
@@ -107,11 +37,14 @@ var wordGame = wordGame || {};
 
 wordGame.setUp = function(){
 
+  //create a new button on start up called 'start' that if clicked envokes 'newgame'
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
 
   this.$startButton.on('click', function(){
+    //onclick, the start button envokes newgame and fades the grey cover.
     $('.cover').fadeOut(2000);
     wordGame.newGame();
+    //click button is removed from the DOM once clicked.
     wordGame.$startButton.remove();
   });
 };
@@ -120,68 +53,62 @@ wordGame.setUp = function(){
 
 wordGame.newGame = function(){
 
-//defining variables that will be available globally and will later be randomised
+  //defining variables that will be available globally and will later be randomised
   this.interval = 0;
   this.speed = 0;
   this.score = 0;
 
-//Set the score back to 0 if it isn't already
+  //Set the score back to 0 if it isn't already
   $('.score').text(`${this.score}`);
 
-//Define the arrays of words in each category. (as these get pulled into the DOM at random, reduce in size, therefore need to be declared before the game gets restarted.)
+  //Define the arrays of words in each category. (as these get pulled into the DOM at random, reduce in size, therefore need to be declared before the game gets restarted.)
   this.easy = ['all','am','and','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','dog','fat','for','fun','get','good','got','had','hat','hen','here','him','his','home','hot','into','let','like','look','man','may','mum','not','old','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','stop','sun','ten','the','this','top','toy','two','was','will','yes','you'];
 
   this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after', 'santa', 'women'];
 
   this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES', 'ENACTOR'
-  ];
+];
 
 //Use this bonus array between levels - using different logic.
-  this.bonus = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+this.bonus = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 //Ensuring the arrays are empty
-  this.usedBonusArray = [];
-  this.usedWordArray = [];
+this.usedBonusArray = [];
+this.usedWordArray = [];
 
 // Envoke the randomTime function randomises the values for speed, interval and position
-  this.randomTime();
+this.randomTime();
 
-  return this.newGame;
+return this.newGame;
 
 };
 
 //the function randomTime is a function to assign random values to the variables.
 wordGame.randomTime = function(){
 
-//speed can be anything between 10000 and 12000
+  //speed can be anything between 10000 and 12000
   this.speed = Math.floor(Math.random()*2000+10000);
-//interval can be anything between 1000 and 30000
+  //interval can be anything between 1000 and 30000
   this.interval = Math.floor(Math.random()*2000+1000);
-//the X axis position of the blocks can vary from 0 to 350
+  //the X axis position of the blocks can vary from 0 to 350
   this.$positionX = Math.floor(Math.random()*350);
 
-
-
-//timer uses the generated value for interval to intermittently introduce a new block
-//TEST THIS USING SET TIMEOUT
+  //timer uses the generated value for interval to intermittently introduce a new block
   this.timer = setTimeout(function () {
 
-    wordGame.giveAttribute();
+    wordGame.createBlock();
 
   }, wordGame.interval);
-
-  //ensure the check function is cleared.
-  clearInterval(this.check);
 
   return this.randomTime;
 };
 
 
-
-
-wordGame.giveAttribute = function(){
+//giveAttribute assigns value to each block based on an if statement looking for the length of the three levels arrays.
+wordGame.createBlock = function(){
 
   clearInterval(this.timer);
+
 
   this.randomTime();
   this.submitText();
@@ -189,22 +116,22 @@ wordGame.giveAttribute = function(){
 
   if(this.easy.length >= 68){
 
-    this.easyTimer = setTimeout(function(){
-      wordGame.positionCheck();
-      wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
-      wordGame.$easyIndex = Math.floor(Math.random()*((wordGame.easy).length));
-      wordGame.$currentEasyWord = wordGame.easy[wordGame.$easyIndex];
-      wordGame.easy.splice(wordGame.$easyIndex, 1);
-      wordGame.usedWordArray.push(wordGame.$currentEasyWord.toUpperCase());
-      wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
-      wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F7CB15'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},wordGame.speed);
-      return;
-    },1000);
+    this.positionCheck();
+    this.$block = $('<div/>').appendTo('.space').addClass(`block`);
+    this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
+    this.$currentEasyWord = this.easy[this.$easyIndex];
+    this.easy.splice(this.$easyIndex, 1);
+    this.usedWordArray.push(this.$currentEasyWord.toUpperCase());
+    this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
+    this.$block.css({'left': this.$positionX+'px', 'background-color': '#F7CB15'}).html(`${this.$blockWord}`).animate({'margin-top': '660px'},this.speed);
+    return;
+
 
   }
   // else if(this.bonus.length >15){
   //
   //   this.bonusText();
+  //
   //   this.easyTimer = setTimeout(function(){
   //
   //     wordGame.$bonusIndex = Math.floor(Math.random()*((wordGame.bonus).length));
@@ -216,6 +143,7 @@ wordGame.giveAttribute = function(){
   //     wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': 'black'}).html(`${wordGame.$blockWord}`).animate({'margin-top': '660px'},10000);
   //     return;
   //   },3000);
+  //
   // }
   else if (this.medium.length >= 43) {
 
@@ -234,7 +162,7 @@ wordGame.giveAttribute = function(){
 
       return;
 
-    },2000);
+    },1000);
 
 
   } else if (this.hard.length > 0) {
@@ -254,11 +182,11 @@ wordGame.giveAttribute = function(){
       console.log(wordGame.usedWordArray);
       return;
 
-    },2500);
+    },2000);
 
   }
 
-  return this.giveAttribute;
+  return this.createBlock;
 
 };
 
@@ -267,7 +195,9 @@ wordGame.giveAttribute = function(){
 wordGame.positionCheck = function(){
 
   this.check = setInterval(function(){
-    if ($('.block').offset().top >= 540){
+    if($('.block').length === 0){
+      clearInterval(this.check);
+    }else if ($('.block').offset().top >= 540){
       $(`.block`).remove();
       wordGame.end();
     }
@@ -279,8 +209,11 @@ wordGame.positionCheck = function(){
 //   this.inputText = $('.input');
 //
 //
-//   if(this.inputText.val().toUpperCase() === this.usedBonusArray[0]){
-//     $(`#${wordGame.$blockWord}`).remove();
+//   if($.inArray(this.inputText.val().toUpperCase(), this.usedBonusArray) !== -1){
+//     console.log('hello!');
+//     this.userLetter = $.inArray(this.inputText.val().toUpperCase(), this.usedBonusArray);
+//     console.log(this.userLetter);
+//     $(`.block`).this.userLetter.remove();
 //     this.score++;
 //     $('.score').text(`${this.score}`);
 //
