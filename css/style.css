@@ -1,20 +1,14 @@
 body, html{
   height: 100%;
 background-color: #E0E2DB;
+text-align: center;
 }
 
-main{
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
 .levelLabel{
   position:absolute;
   z-index: 2;
   font-family: 'Lato', sans-serif;
-  color: #ddd;
-  bottom: 130px;
+  bottom: 160px;
   width: 100px;
   text-align: center;
   right: 20px;
@@ -92,7 +86,7 @@ input{
   z-index: 2;
   font-family: 'Lato', sans-serif;
   color: black;
-  bottom: 130px;
+  bottom: 160px;
   width: 100px;
   text-align: center;
   margin-left: 20px;
