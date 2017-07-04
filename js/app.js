@@ -81,7 +81,7 @@ this.usedWordArray = [];
 
 // Envoke the randomTime function randomises the values for speed, interval and position
 this.randomTime();
-
+this.submitText();
 return this.newGame;
 
 };
@@ -152,8 +152,8 @@ wordGame.createBlock = function(){
   // }
   else if (this.medium.length >= 35) {
 
-
     this.medTimer = setTimeout(function(){
+
       $('.level').text('2');
       clearInterval(this.check);
       wordGame.positionCheck();
@@ -165,7 +165,7 @@ wordGame.createBlock = function(){
       wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.speed);
-
+      $('.cover').css('background-color', '#D48CA2').fadeIn(2000);
       return;
 
     },1000);
@@ -175,6 +175,7 @@ wordGame.createBlock = function(){
 
 
     this.hardTimer = setTimeout(function(){
+      $('.cover').css('background-color', '#938CA6').fadeIn(2000);
       $('.level').text('3');
       clearInterval(this.check);
       wordGame.positionCheck();
@@ -276,10 +277,10 @@ wordGame.submitText = function(){
 };
 
 wordGame.end = function(){
+  $('.cover').css('background-color', 'rgba(179, 179, 179, 0.8)').fadeIn(2000);
   $(".input").attr("disabled", "disabled");
   $('.level').text('1');
   $('.levelLabel').css('display', 'none');
-  $('.cover').fadeIn(2000);
   this.$block.remove();
   clearInterval(wordGame.check);
   clearTimeout(wordGame.timer);
