@@ -9,6 +9,22 @@ main{
   margin: 0 auto;
   text-align: center;
 }
+.levelLabel{
+  position:absolute;
+  z-index: 2;
+  font-family: 'Lato', sans-serif;
+  color: #ddd;
+  bottom: 130px;
+  width: 100px;
+  text-align: center;
+  right: 20px;
+  font-size: 20px;
+  display: none;
+  color: black;
+}
+.level{
+  color:#F45D01;
+}
 
 .cover{
   background-color: rgba(179, 179, 179, 0.8);
@@ -68,7 +84,7 @@ input{
   color: #F45D01;
 }
 
-p{
+.scoreLabel{
   position:absolute;
   z-index: 2;
   font-family: 'Lato', sans-serif;
@@ -124,8 +140,9 @@ p{
   margin-top: -39px;
   text-align: center;
   padding: 10px 0px;
-  border-radius: 4px;
+  border-radius: 12px;
   width: 150px;
+  height: 25px;
   z-index: 0;
   color: white;
   font-family: 'Lato', sans-serif;

@@ -54,6 +54,7 @@ wordGame.setUp = function(){
 //NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 
 wordGame.newGame = function(){
+  $(".input").prop("disabled", false);
 
   //defining variables that will be available globally and will later be randomised
   this.interval = 0;
@@ -118,6 +119,8 @@ wordGame.createBlock = function(){
 
   if(this.easy.length >= 60){
 
+    $('.levelLabel').css('display', 'block');
+
     this.positionCheck();
     this.$block = $('<div/>').appendTo('.space').addClass(`block`);
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
@@ -126,6 +129,7 @@ wordGame.createBlock = function(){
     this.usedWordArray.push(this.$currentEasyWord.toUpperCase());
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#F7CB15'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.speed);
+
     return;
 
   }
@@ -150,6 +154,7 @@ wordGame.createBlock = function(){
 
 
     this.medTimer = setTimeout(function(){
+      $('.level').text('2');
       clearInterval(this.check);
       wordGame.positionCheck();
       wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
@@ -170,6 +175,7 @@ wordGame.createBlock = function(){
 
 
     this.hardTimer = setTimeout(function(){
+      $('.level').text('3');
       clearInterval(this.check);
       wordGame.positionCheck();
       wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
@@ -226,26 +232,52 @@ wordGame.positionCheck = function(){
 
 
 wordGame.submitText = function(){
-  $('.block').first().css('background-color', 'red');
+  console.log($('.block').first().text().split(''));
+  this.$letterArray = $('.block').first().text().split('');
+  $('.block').first().css({'background-color': '#963484'});
 
   console.log(this.$blockId);
   this.inputText = $('.input');
   console.log(this.inputText.val());
 
-  if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
+  if(this.$letterArray[0] === this.inputText.val().toUpperCase()){
+    new Audio('sounds/type_correct.mp3').play();
+    this.inputText.val('');
+    this.$letterArray.shift();
+    this.$blockWord = this.$letterArray.join().replace(/,/g, '');
+    $('.block').first().text(`${this.$blockWord}`);
+  }else if($('.block').length === 0){
+    console.log('nothing');
+  }else if(this.$letterArray.length === 0){
+    $('.block').first().remove();
     new Audio('sounds/Blop-Mark_DiAngelo-79054334.wav').play();
     this.score++;
     $('.score').text(`${this.score}`);
-    $('.block').first().remove();
     console.log('correct!');
     this.usedWordArray.shift();
     this.inputText.val('');
     console.log(this.usedWordArray);
-
+  }else{
+    this.inputText.val('');
   }
+
+  // if(this.inputText.val().toUpperCase() === this.usedWordArray[0]){
+  //   new Audio('sounds/Blop-Mark_DiAngelo-79054334.wav').play();
+  //   this.score++;
+  //   $('.score').text(`${this.score}`);
+  //   $('.block').first().remove();
+  //   console.log('correct!');
+  //   this.usedWordArray.shift();
+  //   this.inputText.val('');
+  //   console.log(this.usedWordArray);
+  //
+  // }
 };
 
 wordGame.end = function(){
+  $(".input").attr("disabled", "disabled");
+  $('.level').text('1');
+  $('.levelLabel').css('display', 'none');
   $('.cover').fadeIn(2000);
   this.$block.remove();
   clearInterval(wordGame.check);
