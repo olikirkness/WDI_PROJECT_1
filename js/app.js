@@ -257,7 +257,8 @@ wordGame.submitText = function(){
     this.usedWordArray.shift();
     this.inputText.val('');
     console.log(this.usedWordArray);
-  }else{
+  }else if(this.$letterArray[0] !== this.inputText.val().toUpperCase()){
+    // new Audio('sounds/wrong_answer.mp3').play();
     this.inputText.val('');
   }
 
