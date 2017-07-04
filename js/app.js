@@ -165,7 +165,7 @@ wordGame.createBlock = function(){
       wordGame.usedWordArray.push(wordGame.$currentMedWord.toUpperCase());
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.speed);
-      $('.cover').css('background-color', '#D48CA2').fadeIn(2000);
+      wordGame.backgroundChange();
       return;
 
     },1000);
@@ -175,7 +175,7 @@ wordGame.createBlock = function(){
 
 
     this.hardTimer = setTimeout(function(){
-      $('.cover').css('background-color', '#938CA6').fadeIn(2000);
+
       $('.level').text('3');
       clearInterval(this.check);
       wordGame.positionCheck();
@@ -188,14 +188,23 @@ wordGame.createBlock = function(){
       wordGame.$blockWord = wordGame.usedWordArray[wordGame.usedWordArray.length-1];
       wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#F45D01'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.speed);
       console.log(wordGame.usedWordArray);
+      wordGame.backgroundChange();
       return;
 
-    },2000);
+    },2500);
 
   }
 
   return this.createBlock;
 
+};
+
+wordGame.backgroundChange = function(){
+  if ($('.level').text() === '2'){
+    $('.cover').css('background-color', '#D48CA2').fadeIn(4000);
+  }else if ($('.level').text() === '3'){
+    $('.cover').css('background-color', '#938CA6').fadeIn(4000);
+  }
 };
 
 
@@ -246,13 +255,14 @@ wordGame.submitText = function(){
     this.inputText.val('');
     this.$letterArray.shift();
     this.$blockWord = this.$letterArray.join().replace(/,/g, '');
+    this.score++;
     $('.block').first().text(`${this.$blockWord}`);
   }else if($('.block').length === 0){
     console.log('nothing');
   }else if(this.$letterArray.length === 0){
     $('.block').first().remove();
     new Audio('sounds/Blop-Mark_DiAngelo-79054334.wav').play();
-    this.score++;
+
     $('.score').text(`${this.score}`);
     console.log('correct!');
     this.usedWordArray.shift();
