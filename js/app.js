@@ -48,16 +48,15 @@ wordGame.setUp = function(){
 //NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 wordGame.newGame = function(){
 
-  this.life1 = $('<img class = "life" id = "life1" src="images/icon_life.png"/>').appendTo('.top');
-  this.life1 = $('<img class = "life" id = "life2" src="images/icon_life.png"/>').appendTo('.top');
-  this.life1 = $('<img class = "life" id = "life3" src="images/icon_life.png"/>').appendTo('.top');
+  this.life1 = $('<img class = "life" id = "life1" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
+  this.life2 = $('<img class = "life" id = "life2" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
+  this.life3 = $('<img class = "life" id = "life3" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
 
   //Automatically focuses on the text box once the game starts
-  $('input').focus();
+  $('input').focus().val('');
 
   this.lives = 3;
 
-  //set score to 0
   this.score = 0;
 
   this.level = $('.level');
@@ -74,8 +73,7 @@ wordGame.newGame = function(){
 
   console.log(this.medium.length);
 
-  this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES', 'ENACTOR'
-  ];
+  this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES','ENACTOR','Thirteen','Thursday','Princess','Thousand','Fourteen','Language','Chipotle','American','Business','Favorite','Elephant','Children','Birthday','Mountain','Feminine','Football','Kindness','Syllable','Abdicate','Treasure','Virginia','Envelope','Strength','Together','Memories','Darkness','February','Sandwich','Calendar','Bullying','Equation','Violence','Marriage','Building','Internal','Function','November','Drooping','Abortion','Victoria','Squirrel','Tomorrow','Champion','Sentence','Personal','Remember','Daughter','Hospital', 'Ordinary','Medicine'];
 
 //Ensuring the arrays are empty. This is where words get pulled once randomly selected.
   this.usedWordArray = [];
@@ -179,9 +177,9 @@ wordGame.giveAttribute = function(){
 //the change background functino looks to change the background based on level
 wordGame.backgroundChange = function(){
   if (this.level.text() === '2'){
-    $('.cover').css('background-color', '#ff9966').fadeIn(4000);
+    $('.cover').css('background-color', '#ff9966').fadeIn(8000);
   }else if (this.level.text() === '3'){
-    $('.coverTwo').css('background-color', '#4B738E').fadeIn(4000);
+    $('.coverTwo').css('background-color', '#4B738E').fadeIn(8000);
   }
 };
 
@@ -272,10 +270,8 @@ wordGame.end = function(){
 
 //store the highscore locally so it stays on refresh of the page.
   this.highScore = localStorage.getItem('highScore') || 0;
-
   if (this.score > this.highScore){
     this.highScore = parseInt(this.score);
-
     localStorage.setItem('highScore', this.highScore);
   }
 //_____UNCOMMENT TO CLEAR LOCAL STORAGE________

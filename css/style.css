@@ -96,7 +96,7 @@ input{
 }
 
 .top{
-  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/cloud_2.png);
+  background-image: url(http://i.imgur.com/rdWfCL6.png);
   height: 110px;
   width: 100%;
   margin-top: 0;
@@ -108,7 +108,7 @@ input{
 }
 
 .base{
-  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/ground.png);
+  background-image: url(http://i.imgur.com/P4KR4mV.png);
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
@@ -125,7 +125,7 @@ input{
   margin-top: -39px;
   text-align: center;
   padding: 10px 0px;
-  border-radius: 12px;
+  border-radius: 25px;
   width: 150px;
   height: 25px;
   z-index: 2;
@@ -136,13 +136,14 @@ input{
 
 .life{
   height: 30px;
-  margin-right: -70%;
-  margin-top: 10px;
+  margin-top: 8px;
   float: left;
   position: relative;
+  align-items: center;
 
 }
 #life1, #life2, #life3{
   float:right;
+  right: auto;
   margin-right: 30px;
 }
