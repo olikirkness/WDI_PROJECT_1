@@ -30,26 +30,21 @@
 
 //Code_____________________________________________________
 var wordGame = wordGame || {};
-
 //______________________________________________________________________
 //SetUp --- This function should define the inititial state for the game.
 wordGame.setUp = function(){
-
-  //Storing all final scores in an array allows for the storage of the highest score.
+//Storing all final scores in an array allows for the storage of the highest score.
   this.scoreArray = [];
-
-  //create a new button on start up called 'start' that if clicked envokes 'newgame'
+//create a new button on start up called 'start' that if clicked envokes 'newgame'
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
-
   this.$startButton.on('click', function(){
-    //onclick, the start button envokes newgame and fades the grey cover.
+//onclick, the start button envokes newgame and fades the grey cover.
     $('.cover').fadeOut(2000);
     wordGame.newGame();
-    //click button is removed from the DOM once clicked.
+//click button is removed from the DOM once clicked.
     wordGame.$startButton.remove();
   });
 };
-
 //_________________________________________________________________
 //NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 wordGame.newGame = function(){
@@ -62,15 +57,17 @@ wordGame.newGame = function(){
 
   this.level = $('.level');
 
-  this.thisBlock = $('.block');
-
   //Set the score back to 0 if it isn't already
   $('.score').text(`${this.score}`);
 
   //Define the arrays of words in each category. (As these get pulled into the DOM at random they reduce in size, therefore need to be declared before the game gets restarted.)
-  this.easy = ['all','am','and','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','dog','fat','for','fun','get','good','got','had','hat','hen','here','him','his','home','hot','into','let','like','look','man','may','mum','not','old','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','stop','sun','ten','the','this','top','toy','two','was','will','yes','you'];
+  this.easy = ['all','am','and','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','dog','fat','for','fun','get','good','got','had','hat','hen','here','him','his','home','hot','into','let','like','look','man','may','mum','not','old','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','stop','sun','ten','the','this','top','toy','two','was','will','yes','you','able','acid','aged','also','area','army','away','baby','back','ball','band','bank','base','bath','bear','beat','been','beer','bell','belt','best','bill','bird','blow','blue','boat','body','bomb','bond','bone','book','boom','born','boss','both','bowl','bulk','burn','bush','busy','call','calm','came','camp','card','care','case','cash','cast','cell','chat','chip','city','club','coal','coat','code','cold','come','cook','cool','cope','copy','CORE','cost','crew','crop','dark','data','date','dawn','days','dead','deal','dean','dear','debt','deep','deny','desk','dial','dick','diet','disc','disk','does','done','door','dose','down','draw','drew','drop','drug','dual','duke','dust','duty','each','earn','ease','east','easy','edge','else','even','ever','evil','exit','face','fact','fail','fair','fall','farm','fast','fate','fear','feed','feel','feet','fell','felt','file','fill','film','find','fine','fire','firm','fish','five','flat','flow','food','foot','ford','form','fort','four','free','from','fuel','full','fund','gain','game','gate','gave','gear','gene','gift','girl','give','glad','goal','goes','gold','Golf','gone','good','gray','grew','grey','grow','gulf','hair','half','hall','hand','hang','hard','harm','hate','have','head','hear','heat','held','hell','help','here','hero','high','hill','hire','hold','hole','holy','home','hope','host','hour','huge','hung','hunt','hurt','idea','inch','into','iron','item','jack','jane','jean','john','join','jump','jury','just','keen','keep','kent','kept','kick','kill','kind','king','knee','knew','know','lack','lady','laid','lake','land','lane','last','late','lead','left','less','life','lift','like','line','link','list','live','load','loan','lock','logo','long','look','lord','lose','loss','lost','love','luck','made','mail','main','make','male','many','Mark','mass','matt','meal','mean','meat','meet','menu','mere','mike','mile','milk','mill','mind','mine','miss','mode','mood','moon','more','most','move','much','must','name','navy','near','neck','need','news','next','nice','nick','nine','none','nose','note','okay','once','only','onto','open','oral','over','pace','pack','page','paid','pain','pair','palm','park','part','pass','past','path','peak','pick','pink','pipe','plan','play','plot','plug','plus','poll','pool','poor','port','post','pull','pure','push','race','rail','rain','rank','rare','rate','read','real','rear','rely','rent','rest','rice','rich','ride','ring','rise','risk','road','rock','role','roll','roof','room','root','rose','rule','rush','ruth','safe','said','sake','sale','salt','same','sand','save','seat','seed','seek','seem','seen','self','sell','send','sent','sept','ship','shop','shot','show','shut','sick','side','sign','site','size','skin','slip','slow','snow','soft','soil','sold','sole','some','song','soon','sort','soul','spot','star','stay','step','stop','such','suit','sure','take','tale','talk','tall','tank','tape','task','team','tech','tell','tend','term','test','text','than','that','them','then','they','thin','this','thus','till','time','tiny','told','toll','tone','tony','took','tool','tour','town','tree','trip','true','tune','turn','twin','type','unit','upon','used','user','vary','vast','very','vice','view','vote','wage','wait','wake','walk','wall','want','ward','warm','wash','wave','ways','weak','wear','week','well','went','were','west','what','when','whom','wide','wife','wild','will','wind','wine','wing','wire','wise','wish','with','wood','word','wore','work','yard','yeah','year','your','zero','zone'];
 
-  this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after', 'santa', 'women'];
+  console.log(this.easy.length);
+
+  this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after','santa','women','aboard','absorb','afghan','assign','cement','chorus','cleave','cornea','crunch','debris','delved','drawer','duress','easily','embryo','exotic','eyelet','facade','fedora','fronds','genius','giggle','gossip','helmet','heroic','kidney','loathe','mallet','mortar','murmur','nephew','parody','peruse','ponder','racial','ransom','rascal','realty','reason','reckon','relish','rugged','scythe','sequel','shovel','simmer','sourly','stench','talons','tiring','tissue','virtue','weasel','widget','wizard','wombat'];
+
+  console.log(this.medium.length);
 
   this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES', 'ENACTOR'
   ];
@@ -90,12 +87,9 @@ wordGame.newGame = function(){
     wordGame.backgroundChange();
     wordGame.positionCheck();
   },100);
-
 //ensures once the above has been executed stops
   return this.newGame;
-
 };
-
 //_______________________________________________________________________
 //randomValues is a function to assign random values to the variables that make the game dynamic
 wordGame.randomValues = function(){
@@ -105,27 +99,23 @@ wordGame.randomValues = function(){
   this.$interval = Math.floor(Math.random()*2000+800);
   //the X axis position of the blocks can fall anywhere within the width of the users window.
   this.$positionX = Math.floor(Math.random()*($(window).width()-150));
-
   //blockTimer uses the generated value for interval to intermittently introduce a new block
   this.blockTimer = setTimeout(function () {
 //create a 'block' as a div appended to the element '.space'.
     wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
     wordGame.giveAttribute();
   }, wordGame.$interval);
-
 };
-
 //_____________________________________________________________________
 //giveAttribute assigns value to each block based on an if statement looking for the length of the three levels arrays.
 wordGame.giveAttribute = function(){
-
   //Re-envoke randomValues to generate a different set of properties for the following block.
   this.randomValues();
 
 //_______EASY___________________________________________________________
 //if statement defines which array to pull words from and assigns the word to the block.
 //Each statement will continue until the level array is less than the value stated.
-  if(this.easy.length >= 60){
+  if(this.easy.length >= 548){
 //Find a word from the easy array at random.
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
 //store that word as '$currentEasyWord'
@@ -140,8 +130,8 @@ wordGame.giveAttribute = function(){
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#F7CB15'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
 //________MEDIUM________________________________________________________
-//If the easy array is less than 60 elements long, the following will run.
-  }else if (this.medium.length >= 28) {
+//If the easy array is less than 548 elements long, the following will run.
+  }else if (this.medium.length >= 73) {
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
     this.level.text('2');
 //Find a word from the medium array at random.
@@ -158,7 +148,7 @@ wordGame.giveAttribute = function(){
     wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.$speed);
 
 //________HARD__________________________________________________________
-//If the med array is less than 28 elements long, the following will run.
+//If the med array is less than 73 elements long, the following will run.
   } else if (this.hard.length > 0) {
 //Update the value of .level to '3'
     this.level.text('3');
