@@ -193,6 +193,7 @@ wordGame.positionCheck = function(){
   }else if ($('.block').offset().top >= `${$(window).height()-120}`){
     clearInterval(this.check);
     this.lives = this.lives - 1;
+    $('.life').first().remove();
     $(`.block`).first().remove();
     this.lifeChecker();
   }
