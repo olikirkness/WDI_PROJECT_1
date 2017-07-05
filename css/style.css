@@ -1,5 +1,5 @@
 body, html{
-  height: 100vh;
+  height: 100%;
 background-color: #E0E2DB;
 text-align: center;
 }
@@ -11,7 +11,6 @@ text-align: center;
 .scoreLabel{
   margin-left: 20px;
 }
-
 
 
 .scoreLabel, .levelLabel{
@@ -73,18 +72,18 @@ input{
 
 #start{
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 #start:hover{
   color: #F7CB15;
 }
 #over{
   color: #F45D01;
-  margin-top: -50px !important;
+  /*margin-top: -0px !important;*/
 }
 #highScore{
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .space{
@@ -92,33 +91,34 @@ input{
   height: 100%;
   width: 100%;
   top: -8px;
-  margin-bottom: -8px;
+  bottom: 0px;
   z-index: 0;
   position: relative;
 }
 
 .top{
-  background-image: url(http://i.imgur.com/rdWfCL6.png);
-  height: 110px;
+  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_3.png);
+  height: 260px;
   width: 100%;
-  margin-top: 0;
-  z-index: 1000;
+  top: -100px;
+  z-index: 100;
   position: absolute;
   background-size: cover;
-  background-position: bottom;
+  background-position: left;
   background-repeat: no-repeat;
+
 }
 
 .base{
-  background-image: url(http://i.imgur.com/P4KR4mV.png);
+  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/ground.png);
   background-size: cover;
-  background-position: bottom;
+  background-position: top;
   background-repeat: no-repeat;
   width: 100%;
-  height: 280px;
+  height:155px;
   z-index: 1000;
-  position: absolute;;
-  bottom: 0;
+  position: fixed;;
+  bottom: -8px;
 }
 
 
@@ -138,10 +138,11 @@ input{
 
 .life{
   height: 30px;
-  margin-top: 8px;
+  margin-top: 120px;
   float: left;
   position: relative;
   align-items: center;
+  z-index: 100000000;
 
 }
 #life1, #life2, #life3{

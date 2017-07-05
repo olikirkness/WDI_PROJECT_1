@@ -73,7 +73,7 @@ wordGame.newGame = function(){
 
   console.log(this.medium.length);
 
-  this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES','ENACTOR','Thirteen','Thursday','Princess','Thousand','Fourteen','Language','Chipotle','American','Business','Favorite','Elephant','Children','Birthday','Mountain','Feminine','Football','Kindness','Syllable','Abdicate','Treasure','Virginia','Envelope','Strength','Together','Memories','Darkness','February','Sandwich','Calendar','Bullying','Equation','Violence','Marriage','Building','Internal','Function','November','Drooping','Abortion','Victoria','Squirrel','Tomorrow','Champion','Sentence','Personal','Remember','Daughter','Hospital', 'Ordinary','Medicine'];
+  this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES','ENACTOR','Thirteen','Thursday','Princess','Thousand','Fourteen','Language','Chipotle','American','Business','Favorite','Elephant','Children','Birthday','Mountain','Feminine','Football','Kindness','Syllable','Abdicate','Treasure','Envelope','Strength','Together','Memories','Darkness','February','Sandwich','Calendar','Bullying','Equation','Violence','Marriage','Building','Internal','Function','November','Drooping','Victoria','Squirrel','Tomorrow','Champion','Sentence','Personal','Remember','Daughter','Hospital', 'Ordinary','Medicine'];
 
 //Ensuring the arrays are empty. This is where words get pulled once randomly selected.
   this.usedWordArray = [];
@@ -97,9 +97,9 @@ wordGame.newGame = function(){
 //randomValues is a function to assign random values to the variables that make the game dynamic
 wordGame.randomValues = function(){
   //$speed can be anything between 9000 and 12000
-  this.$speed = Math.floor(Math.random()*3000+9000);
+  this.$speed = Math.floor(Math.random()*3000+9500);
   //interval can be anything between 800 and 2800
-  this.$interval = Math.floor(Math.random()*2000+800);
+  this.$interval = Math.floor(Math.random()*2000+1000);
   //the X axis position of the blocks can fall anywhere within the width of the users window.
   this.$positionX = Math.floor(Math.random()*($(window).width()-150));
   //blockTimer uses the generated value for interval to intermittently introduce a new block
@@ -118,7 +118,7 @@ wordGame.giveAttribute = function(){
 //_______EASY___________________________________________________________
 //if statement defines which array to pull words from and assigns the word to the block.
 //Each statement will continue until the level array is less than the value stated.
-  if(this.easy.length >= 548){
+  if(this.easy.length >= 565){
 //Find a word from the easy array at random.
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
 //store that word as '$currentEasyWord'
@@ -130,11 +130,11 @@ wordGame.giveAttribute = function(){
 //assign the last word in the usedWordArray to the block
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
 //introduce the block to the window by animating it at speed (this.$speed) and at position (positionX).
-    this.$block.css({'left': this.$positionX+'px', 'background-color': '#F7CB15'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
+    this.$block.css({'left': this.$positionX+'px', 'background-color': '#60c426'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
 //________MEDIUM________________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
-  }else if (this.medium.length >= 73) {
+  }else if (this.medium.length >= 90) {
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
     this.level.text('2');
 //Find a word from the medium array at random.
@@ -178,8 +178,11 @@ wordGame.giveAttribute = function(){
 wordGame.backgroundChange = function(){
   if (this.level.text() === '2'){
     $('.cover').css('background-color', '#ff9966').fadeIn(8000);
+    // $('.top').css('background-image', 'url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_4.png)' ).fadeIn(8000);
+
   }else if (this.level.text() === '3'){
     $('.coverTwo').css('background-color', '#4B738E').fadeIn(8000);
+    // $('.top').css('background-image', 'url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_5.png)' ).fadeIn(8000);
   }
 };
 
@@ -294,6 +297,9 @@ wordGame.end = function(){
     wordGame.$playAgain.remove();
     wordGame.$gameOver.remove();
     wordGame.$highScore.remove();
+
+    // $('.top').css('background-image', 'url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_3.png)').fadeIn(2000);
+
   });
 
   return this.end;
