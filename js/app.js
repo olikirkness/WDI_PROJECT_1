@@ -33,8 +33,7 @@ var wordGame = wordGame || {};
 //______________________________________________________________________
 //SetUp --- This function should define the inititial state for the game.
 wordGame.setUp = function(){
-//Storing all final scores in an array allows for the storage of the highest score.
-  this.scoreArray = [];
+
 //create a new button on start up called 'start' that if clicked envokes 'newgame'
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
   this.$startButton.on('click', function(){
@@ -250,10 +249,19 @@ wordGame.end = function(){
   clearInterval(wordGame.check);
   clearInterval(wordGame.checkText);
   clearTimeout(wordGame.blockTimer);
-//push the score achieve by the user in this round to the scoreArray
-  this.scoreArray.push(this.score);
-//locate the highest score in the scoreArray and store it as highScore
-  this.highScore = Math.max.apply(Math,this.scoreArray);
+
+//store the highscore locally so it stays on refresh of the page.
+  this.highScore = localStorage.getItem('highScore') || 0;
+
+  if (this.score > this.highScore){
+    this.highScore = parseInt(this.score);
+
+    localStorage.setItem('highScore', this.highScore);
+  }
+//_____UNCOMMENT TO CLEAR LOCAL STORAGE________
+  // localStorage.clear();
+//_____________________________________________
+
 //create a new div call over and have it say GAME OVER
   this.$gameOver = $('<div id = "over"/>').appendTo('.startBtn').text('GAME OVER');
 //create a new div called highScore and get it to show the value for highScore
