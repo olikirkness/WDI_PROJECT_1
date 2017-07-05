@@ -12,6 +12,8 @@ text-align: center;
   margin-left: 20px;
 }
 
+
+
 .scoreLabel, .levelLabel{
   position:absolute;
   z-index: 2;
@@ -130,4 +132,17 @@ input{
   color: white;
   font-family: 'Lato', sans-serif;
   font-size: 20px;
+}
+
+.life{
+  height: 30px;
+  margin-right: -70%;
+  margin-top: 10px;
+  float: left;
+  position: relative;
+
+}
+#life1, #life2, #life3{
+  float:right;
+  margin-right: 30px;
 }

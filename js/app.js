@@ -48,8 +48,14 @@ wordGame.setUp = function(){
 //NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 wordGame.newGame = function(){
 
+  this.life1 = $('<img class = "life" id = "life1" src="images/icon_life.png"/>').appendTo('.top');
+  this.life1 = $('<img class = "life" id = "life2" src="images/icon_life.png"/>').appendTo('.top');
+  this.life1 = $('<img class = "life" id = "life3" src="images/icon_life.png"/>').appendTo('.top');
+
   //Automatically focuses on the text box once the game starts
   $('input').focus();
+
+  this.lives = 3;
 
   //set score to 0
   this.score = 0;
@@ -185,10 +191,23 @@ wordGame.positionCheck = function(){
   if($('.block').length === 0){
     clearInterval(this.check);
   }else if ($('.block').offset().top >= `${$(window).height()-120}`){
-    $(`.block`).remove();
-    wordGame.end();
+    clearInterval(this.check);
+    this.lives = this.lives - 1;
+    $(`.block`).first().remove();
+    this.lifeChecker();
   }
   return;
+};
+
+//_________________________________________
+wordGame.lifeChecker = function(){
+  if(this.lives > 0){
+    console.log(this.lives);
+  }else{
+    $(`.block`).remove();
+    wordGame.end();
+    console.log(this.lives);
+  }
 };
 
 //_________________________________________________________________________
@@ -226,8 +245,8 @@ wordGame.submitText = function(){
     new Audio('sounds/Blop-Mark_DiAngelo-79054334.wav').play();
 //Delete contects in input box
     this.inputText.val('');
-  }else if(this.$letterArray[0] !== this.inputText.val().toUpperCase()){
-    // new Audio('sounds/wrong_answer.mp3').play();
+  }else if(this.$letterArray[0] !== this.inputText.val().toUpperCase() && this.inputText.val().length !== 0){
+    new Audio('sounds/wrong_answer.mp3').play();
     this.inputText.val('');
   }
 };
