@@ -104,6 +104,8 @@ input{
   bottom: 0px;
   z-index: 0;
   position: relative;
+  left: 0px;
+  right: 0px;
 }
 
 .top{
@@ -116,6 +118,8 @@ input{
   background-size: cover;
   background-position: left;
   background-repeat: no-repeat;
+  left: 0px;
+  right: 0px;
 
 }
 
@@ -129,6 +133,8 @@ input{
   z-index: 1000;
   position: fixed;
   bottom: 0;
+  left: 0px;
+  right: 0px;
 }
 
 
