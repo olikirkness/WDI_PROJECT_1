@@ -40,8 +40,8 @@ wordGame.setUp = function(){
   this.levelLabel = $('<p class="levelLabel"/>').appendTo('body').text('Level: ');
   this.levelSpan = $('<span class="level"/>').appendTo('.levelLabel').text('1');
   this.space = $('<div class="space"/>').appendTo('body');
-  // this.cover = $('<div class="cover"/>').appendTo('.space');
-  // this.coverTwo = $('<div class="coverTwo"/>').appendTo('.space');
+  this.cover = $('<div class="cover"/>').appendTo('.space');
+  this.coverTwo = $('<div class="coverTwo"/>').appendTo('.space');
   this.startBtn = $('<div class="startBtn"/>').appendTo('.space');
   this.gameOver = $('<div class="gameOver"/>').appendTo('.space');
   this.top = $('<div class="top"/>').appendTo('.space');
@@ -51,7 +51,7 @@ wordGame.setUp = function(){
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
   this.$startButton.on('click', function(){
 //onclick, the start button envokes newgame and fades the grey cover.
-    // wordGame.cover.fadeOut(2000);
+    wordGame.cover.fadeOut(2000);
     wordGame.newGame();
 //click button is removed from the DOM once clicked.
     wordGame.$startButton.remove();
@@ -61,10 +61,7 @@ wordGame.setUp = function(){
 //NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 wordGame.newGame = function(){
 
-  this.space.css('background-color', '#7ec0ee');
-  this.$sun.css('margin', '-180px 180px');
-
-//create three lives with three image
+//create three lives with three imagew
   this.life1 = $('<img class = "life" id = "life1" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
   this.life2 = $('<img class = "life" id = "life2" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
   this.life3 = $('<img class = "life" id = "life3" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
@@ -156,8 +153,8 @@ wordGame.giveAttribute = function(){
 
 //________MEDIUM__________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
-  }else if (this.medium.length >= 85) {
-    this.$speed = this.$speed - 600;
+  }else if (this.medium.length >= 70) {
+    this.$speed = this.$speed - 1000;
 
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
     this.level.text('2');
@@ -175,7 +172,7 @@ wordGame.giveAttribute = function(){
     wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.$speed);
 
 //________DELAY___________________________________________________
-  }else if(this.medium.length === 84){
+  }else if(this.medium.length === 69){
     this.timer1 = setTimeout(function(){
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
       console.log('delay');
@@ -184,7 +181,7 @@ wordGame.giveAttribute = function(){
 //________HARD____________________________________________________
 //If the med array is less than 73 elements long, the following will run.
   }else if (this.hard.length > 0) {
-    this.$speed = this.$speed - 1200;
+    this.$speed = this.$speed - 1000;
 //Update the value of .level to '3'
     this.level.text('3');
 //Find a word from the hard array at random.
@@ -209,13 +206,9 @@ wordGame.giveAttribute = function(){
 //the change background function looks to change the background based on level
 wordGame.backgroundChange = function(){
   if (this.level.text() === '2'){
-    this.space.css('background-color', '#ff9966');
-    this.$sun.css('background-color', '#ff6666');
-    this.$sun.css('margin', '-180px 250px');
+    this.cover.css('background-color', '#ff9966').fadeIn(8000);
   }else if (this.level.text() === '3'){
-    this.space.css('background-color', '#4B738E');
-    this.$sun.css('background-color', '#D6D5C0');
-    this.$sun.css('margin', '-180px 330px');
+    this.coverTwo.css('background-color', '#4B738E').fadeIn(8000);
   }
 };
 
@@ -299,9 +292,7 @@ wordGame.end = function(){
 //fadeout coverTwo if it is shown.
   $('.coverTwo').fadeOut(2000);
 //change the cover to be grey and shown
-  this.space.css('background-color', '#a8b5bf');
-  this.$sun.css('background-color', 'orange');
-  this.$sun.css('margin', '-400px 180px');
+  $('.cover').css({'background-color': 'rgba(179, 179, 179, 0.8)', 'display': 'block'}).fadeIn(2000);
 //delete all blocks
   this.$block.remove();
 //clear all timers and intervals
@@ -332,6 +323,8 @@ wordGame.end = function(){
   this.$playAgain = $('<div id = "start"/>').appendTo('.startBtn').text('PLAY AGAIN');
 //on click of the play again button...
   this.$playAgain.on('click', function(){
+//fade out cover to show basic background.
+    $('.cover').fadeOut(2000);
 //envoke newGame to set all initial values.
     wordGame.newGame();
 //remove all created divs.

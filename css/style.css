@@ -10,8 +10,12 @@ body, html{
   border-radius: 50%;
   background-color: orange;
   position: absolute;
-  margin: -180px 180px;
+  margin: -400px 180px;
   z-index: 2;
+  /*transition: background-color 4s;
+  transition: margin 4s;*/
+  transition: all 2s ease;
+  transition-property: margin, background-color;
 }
 
 .levelLabel{
@@ -90,14 +94,13 @@ input{
 }
 #over{
   color: #F45D01;
-  /*margin-top: -0px !important;*/
 }
 #highScore{
   margin-top: 40px;
 }
 
 .space{
-  background-color: #7ec0ee;
+  background-color: #a8b5bf;
   height: 100%;
   width: 100%;
   top: -8px;
@@ -106,6 +109,7 @@ input{
   position: relative;
   left: 0px;
   right: 0px;
+  transition: background-color 4s;
 }
 
 .top{
