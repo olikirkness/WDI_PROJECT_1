@@ -1,7 +1,8 @@
 body, html{
   height: 100%;
-background-color: #E0E2DB;
-text-align: center;
+  width: 100%;
+  background-color: #E0E2DB;
+  text-align: center;
 }
 .sun{
   height: 300px;

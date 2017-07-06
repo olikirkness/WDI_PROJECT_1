@@ -133,7 +133,7 @@ wordGame.giveAttribute = function(){
 //_______EASY___________________________________________________________
 //if statement defines which array to pull words from and assigns the word to the block.
 //Each statement will continue until the level array is less than the value stated.
-  if(this.easy.length >= 561){
+  if(this.easy.length >= 545){
 //Find a word from the easy array at random.
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
 //store that word as '$currentEasyWord'
@@ -148,14 +148,14 @@ wordGame.giveAttribute = function(){
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#60c426'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
 //_______DELAY____________________________________________________
-  }else if(this.easy.length === 560){
+  }else if(this.easy.length === 544){
     this.timer1 = setTimeout(function(){
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       console.log('delay');
     }, 2000);
 //________MEDIUM__________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
-  }else if (this.medium.length >= 73) {
+  }else if (this.medium.length >= 70) {
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
     this.level.text('2');
 //Find a word from the medium array at random.
@@ -172,7 +172,7 @@ wordGame.giveAttribute = function(){
     wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.$speed);
 
 //________DELAY___________________________________________________
-  }else if(this.medium.length === 72){
+  }else if(this.medium.length === 69){
     this.timer1 = setTimeout(function(){
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
       console.log('delay');
@@ -199,18 +199,6 @@ wordGame.giveAttribute = function(){
   }else(this.end());
   return this.giveAttribute;
 };
-
-// wordGame.delay = function(){
-//   if(this.delayCount <= 3 && this.easy.length === 548){
-//     wordGame.timer = setTimeout(function(){
-//       console.log('delay');
-//       wordGame.giveAttribute();
-//       wordGame.delayCount++;
-//     },5000);
-//   }else{
-//     clearTimeout(this.timer);
-//   }
-// };
 
 //_________________________________________________________________________
 //the change background function looks to change the background based on level
