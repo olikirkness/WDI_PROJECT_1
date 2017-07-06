@@ -74,6 +74,8 @@ wordGame.newGame = function(){
 
   this.level = $('.level');
 
+  this.delayCount = 1;
+
   //Set the score back to 0 if it isn't already
   $('.score').text(`${this.score}`);
 
@@ -110,9 +112,9 @@ wordGame.newGame = function(){
 //randomValues is a function to assign random values to the variables that make the game dynamic
 wordGame.randomValues = function(){
   //$speed can be anything between 9000 and 12000
-  this.$speed = Math.floor(Math.random()*3000+9800);
+  this.$speed = Math.floor(Math.random()*3000+10000);
   //interval can be anything between 800 and 2800
-  this.$interval = Math.floor(Math.random()*2000+1300);
+  this.$interval = Math.floor(Math.random()*1500+800);
   //the X axis position of the blocks can fall anywhere within the width of the users window.
   this.$positionX = Math.floor(Math.random()*($(window).width()-150));
   //blockTimer uses the generated value for interval to intermittently introduce a new block
@@ -131,7 +133,7 @@ wordGame.giveAttribute = function(){
 //_______EASY___________________________________________________________
 //if statement defines which array to pull words from and assigns the word to the block.
 //Each statement will continue until the level array is less than the value stated.
-  if(this.easy.length >= 548){
+  if(this.easy.length >= 561){
 //Find a word from the easy array at random.
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
 //store that word as '$currentEasyWord'
@@ -145,7 +147,13 @@ wordGame.giveAttribute = function(){
 //introduce the block to the window by animating it at speed (this.$speed) and at position (positionX).
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#60c426'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
-//________MEDIUM________________________________________________________
+//_______DELAY____________________________________________________
+  }else if(this.easy.length === 560){
+    this.timer1 = setTimeout(function(){
+      wordGame.easy.splice(wordGame.$easyIndex, 1);
+      console.log('delay');
+    }, 2000);
+//________MEDIUM__________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
   }else if (this.medium.length >= 73) {
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
@@ -163,9 +171,15 @@ wordGame.giveAttribute = function(){
 //introduce the block to the window by animating it at speed ($speed) and at position (positionX).
     wordGame.$block.css({'left': wordGame.$positionX+'px', 'background-color': '#878E88'}).html(`${wordGame.$blockWord}`).animate({'margin-top': `${$(window).height()}`},wordGame.$speed);
 
-//________HARD__________________________________________________________
+//________DELAY___________________________________________________
+  }else if(this.medium.length === 72){
+    this.timer1 = setTimeout(function(){
+      wordGame.medium.splice(wordGame.$mediumIndex, 1);
+      console.log('delay');
+    }, 2000);
+//________HARD____________________________________________________
 //If the med array is less than 73 elements long, the following will run.
-  } else if (this.hard.length > 0) {
+  }else if (this.hard.length > 0) {
 //Update the value of .level to '3'
     this.level.text('3');
 //Find a word from the hard array at random.
@@ -186,6 +200,18 @@ wordGame.giveAttribute = function(){
   return this.giveAttribute;
 };
 
+// wordGame.delay = function(){
+//   if(this.delayCount <= 3 && this.easy.length === 548){
+//     wordGame.timer = setTimeout(function(){
+//       console.log('delay');
+//       wordGame.giveAttribute();
+//       wordGame.delayCount++;
+//     },5000);
+//   }else{
+//     clearTimeout(this.timer);
+//   }
+// };
+
 //_________________________________________________________________________
 //the change background function looks to change the background based on level
 wordGame.backgroundChange = function(){
@@ -202,8 +228,9 @@ wordGame.positionCheck = function(){
   if($('.block').length === 0){
     clearInterval(this.check);
   }else if ($('.block').offset().top >= `${$(window).height()-120}`){
+    new Audio('sounds/buzzer.mp3').play();
     clearInterval(this.check);
-    this.lives = this.lives - 1;
+    this.lives--;
     $('.life').first().remove();
     $(`.block`).first().remove();
     this.lifeChecker();
