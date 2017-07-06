@@ -46,6 +46,7 @@ wordGame.setUp = function(){
   this.gameOver = $('<div class="gameOver"/>').appendTo('.space');
   this.top = $('<div class="top"/>').appendTo('.space');
   this.base = $('<div class="base"/>').appendTo('.space');
+  this.$sun = $('<div class="sun"/>').appendTo('.space');
 //create a new button on start up called 'start' that if clicked envokes 'newgame'
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
   this.$startButton.on('click', function(){

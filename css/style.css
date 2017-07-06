@@ -3,6 +3,15 @@ body, html{
 background-color: #E0E2DB;
 text-align: center;
 }
+.sun{
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  background-color: orange;
+  position: absolute;
+  margin: -180px 180px;
+  z-index: 2;
+}
 
 .levelLabel{
   right: 20px;
@@ -97,10 +106,10 @@ input{
 }
 
 .top{
-  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_3.png);
-  height: 260px;
+  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_6.png);
+  height: 230px;
   width: 100%;
-  top: -100px;
+  top: -60px;
   z-index: 100;
   position: absolute;
   background-size: cover;
