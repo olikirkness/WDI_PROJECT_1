@@ -33,7 +33,19 @@ var wordGame = wordGame || {};
 //______________________________________________________________________
 //SetUp --- This function should define the inititial state for the game.
 wordGame.setUp = function(){
-
+//Create HTML elements_____________________________________________
+  this.inputBox = $('<input type="text" class="input" onkeypress="wordGame.submitText(event)"/>').appendTo('body');
+  this.scoreLabel = $('<p class="scoreLabel"/>').appendTo('body').text('Score: ');
+  this.scoreSpan = $('<span class="score"/>').appendTo('.scoreLabel').text('0');
+  this.levelLabel = $('<p class="levelLabel"/>').appendTo('body').text('Level: ');
+  this.levelSpan = $('<span class="level"/>').appendTo('.levelLabel').text('1');
+  this.space = $('<div class="space"/>').appendTo('body');
+  this.cover = $('<div class="cover"/>').appendTo('.space');
+  this.coverTwo = $('<div class="coverTwo"/>').appendTo('.space');
+  this.startBtn = $('<div class="startBtn"/>').appendTo('.space');
+  this.gameOver = $('<div class="gameOver"/>').appendTo('.space');
+  this.top = $('<div class="top"/>').appendTo('.space');
+  this.base = $('<div class="base"/>').appendTo('.space');
 //create a new button on start up called 'start' that if clicked envokes 'newgame'
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
   this.$startButton.on('click', function(){
@@ -97,9 +109,9 @@ wordGame.newGame = function(){
 //randomValues is a function to assign random values to the variables that make the game dynamic
 wordGame.randomValues = function(){
   //$speed can be anything between 9000 and 12000
-  this.$speed = Math.floor(Math.random()*3000+9500);
+  this.$speed = Math.floor(Math.random()*3000+9800);
   //interval can be anything between 800 and 2800
-  this.$interval = Math.floor(Math.random()*2000+1000);
+  this.$interval = Math.floor(Math.random()*2000+1300);
   //the X axis position of the blocks can fall anywhere within the width of the users window.
   this.$positionX = Math.floor(Math.random()*($(window).width()-150));
   //blockTimer uses the generated value for interval to intermittently introduce a new block
@@ -118,7 +130,7 @@ wordGame.giveAttribute = function(){
 //_______EASY___________________________________________________________
 //if statement defines which array to pull words from and assigns the word to the block.
 //Each statement will continue until the level array is less than the value stated.
-  if(this.easy.length >= 565){
+  if(this.easy.length >= 570){
 //Find a word from the easy array at random.
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
 //store that word as '$currentEasyWord'
@@ -134,7 +146,7 @@ wordGame.giveAttribute = function(){
 
 //________MEDIUM________________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
-  }else if (this.medium.length >= 90) {
+  }else if (this.medium.length >= 97) {
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
     this.level.text('2');
 //Find a word from the medium array at random.
@@ -174,20 +186,17 @@ wordGame.giveAttribute = function(){
 };
 
 //_________________________________________________________________________
-//the change background functino looks to change the background based on level
+//the change background function looks to change the background based on level
 wordGame.backgroundChange = function(){
   if (this.level.text() === '2'){
-    $('.cover').css('background-color', '#ff9966').fadeIn(8000);
-    // $('.top').css('background-image', 'url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_4.png)' ).fadeIn(8000);
-
+    this.cover.css('background-color', '#ff9966').fadeIn(8000);
   }else if (this.level.text() === '3'){
-    $('.coverTwo').css('background-color', '#4B738E').fadeIn(8000);
-    // $('.top').css('background-image', 'url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_5.png)' ).fadeIn(8000);
+    this.coverTwo.css('background-color', '#4B738E').fadeIn(8000);
   }
 };
 
 //_________________________________________________________________________
-//positionCheck will clear the interval if there are no blocks in the system but will check the top offset of the blocks and will remove all blocks if any fall below 120 from the bottom of the user window.
+//positionCheck will clear the interval if there are no blocks in the system but will check the top offset of the blocks and will remove blocks that fall below 120 from the bottom of the user window and remove one life from the user.
 wordGame.positionCheck = function(){
   if($('.block').length === 0){
     clearInterval(this.check);
@@ -201,7 +210,8 @@ wordGame.positionCheck = function(){
   return;
 };
 
-//_________________________________________
+//___________________________________________________________________
+//this is a simple function that will end the game if the number of lives fall to zero.
 wordGame.lifeChecker = function(){
   if(this.lives > 0){
     console.log(this.lives);
@@ -213,7 +223,7 @@ wordGame.lifeChecker = function(){
 };
 
 //_________________________________________________________________________
-//submitText checks for the user input in the text field
+//submitText checks for the user input in the text field and dictates logic for any possible eventuality
 wordGame.submitText = function(){
 //create a new array that splits the first (or oldest) block words into letters.
   this.$letterArray = $('.block').first().text().split('');
@@ -277,6 +287,7 @@ wordGame.end = function(){
     this.highScore = parseInt(this.score);
     localStorage.setItem('highScore', this.highScore);
   }
+
 //_____UNCOMMENT TO CLEAR LOCAL STORAGE________
   // localStorage.clear();
 //_____________________________________________
