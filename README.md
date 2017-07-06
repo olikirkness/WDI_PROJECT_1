@@ -7,13 +7,10 @@ For each correctly inputted letter, the user is awarded a point and that letter 
 
 As you work through the levels, the enviroment changes as well as being presented with increasingly difficuly words at escalating speeds.
 
+![Screen Shot 3](http://i.imgur.com/ntwGkJH.png)
+![Screen Shot 2](http://i.imgur.com/BsB6PX1.png)
+![Screen Shot 1](http://i.imgur.com/CP0v66Q.png)
 
-![Screen Shot 1](/users/Oli/Desktop/Screen Shot 2017-07-06 at 23.12.35.png)
-
-
-![Screen Shot 2](/Users/Oli/Desktop/Screen Shot 2017-07-06 at 23.15.36.png)
-
-![Screen Shot 3](/Users/Oli/Desktop/Screen Shot 2017-07-06 at 23.18.54.png)
 
 ##Brief
 This project was designed to build on skills we had been taught in the first two weeks of the Web Development Immersive at General Assembly.
