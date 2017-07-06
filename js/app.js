@@ -51,7 +51,7 @@ wordGame.setUp = function(){
   this.$startButton = $('<div id = "start"/>').appendTo('.startBtn').text('START');
   this.$startButton.on('click', function(){
 //onclick, the start button envokes newgame and fades the grey cover.
-    $('.cover').fadeOut(2000);
+    wordGame.cover.fadeOut(2000);
     wordGame.newGame();
 //click button is removed from the DOM once clicked.
     wordGame.$startButton.remove();
@@ -61,12 +61,13 @@ wordGame.setUp = function(){
 //NewGame defines the initial requirements for a new game. Separated from setUp so that it can be accessed by 'play again' rather than start.
 wordGame.newGame = function(){
 
+//create three lives with three imagew
   this.life1 = $('<img class = "life" id = "life1" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
   this.life2 = $('<img class = "life" id = "life2" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
   this.life3 = $('<img class = "life" id = "life3" src="http://i.imgur.com/9yl5zM8.png"/>').appendTo('.top');
 
   //Automatically focuses on the text box once the game starts
-  $('input').focus().val('');
+  this.inputBox.focus().val('');
 
   this.lives = 3;
 
@@ -77,24 +78,20 @@ wordGame.newGame = function(){
   this.delayCount = 1;
 
   //Set the score back to 0 if it isn't already
-  $('.score').text(`${this.score}`);
+  this.scoreSpan.text(`${this.score}`);
 
   //Define the arrays of words in each category. (As these get pulled into the DOM at random they reduce in size, therefore need to be declared before the game gets restarted.)
   this.easy = ['all','am','and','ball','be','bed','big','book','box','boy','but','came','can','car','cat','come','cow','dad','day','did','dog','fat','for','fun','get','good','got','had','hat','hen','here','him','his','home','hot','into','let','like','look','man','may','mum','not','old','one','out','pan','pet','pig','play','ran','rat','red','ride','run','sat','see','she','sit','six','stop','sun','ten','the','this','top','toy','two','was','will','yes','you','able','acid','aged','also','area','army','away','baby','back','ball','band','bank','base','bath','bear','beat','been','beer','bell','belt','best','bill','bird','blow','blue','boat','body','bomb','bond','bone','book','boom','born','boss','both','bowl','bulk','burn','bush','busy','call','calm','came','camp','card','care','case','cash','cast','cell','chat','chip','city','club','coal','coat','code','cold','come','cook','cool','cope','copy','CORE','cost','crew','crop','dark','data','date','dawn','days','dead','deal','dean','dear','debt','deep','deny','desk','dial','dick','diet','disc','disk','does','done','door','dose','down','draw','drew','drop','drug','dual','duke','dust','duty','each','earn','ease','east','easy','edge','else','even','ever','evil','exit','face','fact','fail','fair','fall','farm','fast','fate','fear','feed','feel','feet','fell','felt','file','fill','film','find','fine','fire','firm','fish','five','flat','flow','food','foot','ford','form','fort','four','free','from','fuel','full','fund','gain','game','gate','gave','gear','gene','gift','girl','give','glad','goal','goes','gold','Golf','gone','good','gray','grew','grey','grow','gulf','hair','half','hall','hand','hang','hard','harm','hate','have','head','hear','heat','held','hell','help','here','hero','high','hill','hire','hold','hole','holy','home','hope','host','hour','huge','hung','hunt','hurt','idea','inch','into','iron','item','jack','jane','jean','john','join','jump','jury','just','keen','keep','kent','kept','kick','kill','kind','king','knee','knew','know','lack','lady','laid','lake','land','lane','last','late','lead','left','less','life','lift','like','line','link','list','live','load','loan','lock','logo','long','look','lord','lose','loss','lost','love','luck','made','mail','main','make','male','many','Mark','mass','matt','meal','mean','meat','meet','menu','mere','mike','mile','milk','mill','mind','mine','miss','mode','mood','moon','more','most','move','much','must','name','navy','near','neck','need','news','next','nice','nick','nine','none','nose','note','okay','once','only','onto','open','oral','over','pace','pack','page','paid','pain','pair','palm','park','part','pass','past','path','peak','pick','pink','pipe','plan','play','plot','plug','plus','poll','pool','poor','port','post','pull','pure','push','race','rail','rain','rank','rare','rate','read','real','rear','rely','rent','rest','rice','rich','ride','ring','rise','risk','road','rock','role','roll','roof','room','root','rose','rule','rush','ruth','safe','said','sake','sale','salt','same','sand','save','seat','seed','seek','seem','seen','self','sell','send','sent','sept','ship','shop','shot','show','shut','sick','side','sign','site','size','skin','slip','slow','snow','soft','soil','sold','sole','some','song','soon','sort','soul','spot','star','stay','step','stop','such','suit','sure','take','tale','talk','tall','tank','tape','task','team','tech','tell','tend','term','test','text','than','that','them','then','they','thin','this','thus','till','time','tiny','told','toll','tone','tony','took','tool','tour','town','tree','trip','true','tune','turn','twin','type','unit','upon','used','user','vary','vast','very','vice','view','vote','wage','wait','wake','walk','wall','want','ward','warm','wash','wave','ways','weak','wear','week','well','went','were','west','what','when','whom','wide','wife','wild','will','wind','wine','wing','wire','wise','wish','with','wood','word','wore','work','yard','yeah','year','your','zero','zone'];
 
-  console.log(this.easy.length);
-
   this.medium = ['seven', 'world', 'about', 'again', 'heart', 'pizza', 'water', 'happy', 'sixty', 'board', 'month', 'Angel', 'death', 'green', 'music', 'fifty', 'three', 'party', 'piano', 'Kelly', 'mouth', 'woman', 'sugar', 'amber', 'dream', 'apple', 'laugh', 'tiger', 'faith', 'earth', 'river', 'money', 'peace', 'forty', 'words', 'smile', 'abate', 'house', 'alone', 'watch', 'lemon', 'South', 'erica', 'anime', 'after','santa','women','aboard','absorb','afghan','assign','cement','chorus','cleave','cornea','crunch','debris','delved','drawer','duress','easily','embryo','exotic','eyelet','facade','fedora','fronds','genius','giggle','gossip','helmet','heroic','kidney','loathe','mallet','mortar','murmur','nephew','parody','peruse','ponder','racial','ransom','rascal','realty','reason','reckon','relish','rugged','scythe','sequel','shovel','simmer','sourly','stench','talons','tiring','tissue','virtue','weasel','widget','wizard','wombat'];
-
-  console.log(this.medium.length);
 
   this.hard = ['TOENAIL', 'ELATION', 'ROUTINE', 'ATONIES', 'OUTEARN', 'URINATE', 'URANITE', 'TAURINE', 'RUINATE', 'ALIENOR', 'AILERON', 'ERASION', 'TRENAIL', 'RETINAL', 'RELIANT', 'RATLINE', 'LATRINE', 'ANEROID', 'TRAINEE', 'RETINAE', 'ARENITE', 'INERTIA', 'AEOLIAN', 'TRAINED', 'DETRAIN', 'ANTIRED', 'NIOBATE', 'ACONITE', 'RONDEAU', 'RAINOUT', 'NEUROID', 'DOURINE', 'URANIDE', 'UNAIRED', 'STONIER', 'ORIENTS', 'OESTRIN', 'NORITES', 'ENATION', 'ALEURON', 'STEARIN', 'STAINER', 'RETSINA', 'RETINAS', 'RETAINS', 'RATINES', 'NASTIER', 'ANTSIER', 'ANESTRI', 'ALUNITE', 'ALIENER', 'TREASON', 'SENATOR', 'ATONERS', 'OUTLIER', 'ROMAINE', 'NEUTRAL', 'MORAINE', 'AIRLINE', 'REGINAE', 'NITERIE', 'UTERINE', 'REUNITE', 'RETINUE', 'OUTLINE', 'ELUTION', 'DENARII', 'TORULAE', 'INEDITA', 'RETINOL', 'DIATRON', 'TEARING', 'TANGIER', 'REPAINT', 'PERTAIN', 'PAINTER', 'LINEATE', 'INGRATE', 'GRATINE', 'GRANITE', 'AMNIOTE', 'RATIONS', 'FOLIATE', 'AROINTS', 'ARENOUS', 'URINOSE', 'TRAILED', 'REDTAIL', 'ETESIAN', 'DILATER', 'URALITE', 'SOUTANE', 'DARIOLE', 'AUDIENT', 'OUTLAIN', 'EROTICA', 'ENTRAIN', 'VIOLATE', 'UNITIES','ENACTOR','Thirteen','Thursday','Princess','Thousand','Fourteen','Language','Chipotle','American','Business','Favorite','Elephant','Children','Birthday','Mountain','Feminine','Football','Kindness','Syllable','Abdicate','Treasure','Envelope','Strength','Together','Memories','Darkness','February','Sandwich','Calendar','Bullying','Equation','Violence','Marriage','Building','Internal','Function','November','Drooping','Victoria','Squirrel','Tomorrow','Champion','Sentence','Personal','Remember','Daughter','Hospital', 'Ordinary','Medicine'];
 
-//Ensuring the arrays are empty. This is where words get pulled once randomly selected.
+//Ensuring the word array are empty. This is where words get pulled once randomly selected.
   this.usedWordArray = [];
 
 //Display the level label.
-  $('.levelLabel').css('display', 'block');
+  this.levelLabel.css('display', 'block');
 
 // Envoke the randomValues function which randomises the values for $speed, interval and position
   this.randomValues();
@@ -105,19 +102,18 @@ wordGame.newGame = function(){
     wordGame.backgroundChange();
     wordGame.positionCheck();
   },100);
-//ensures once the above has been executed stops
-  return this.newGame;
+
 };
 //_______________________________________________________________________
 //randomValues is a function to assign random values to the variables that make the game dynamic
 wordGame.randomValues = function(){
-  //$speed can be anything between 9000 and 12000
+//$speed can be anything between 10000 and 13000
   this.$speed = Math.floor(Math.random()*3000+10000);
-  //interval can be anything between 800 and 2800
+//interval can be anything between 800 and 2500
   this.$interval = Math.floor(Math.random()*1500+800);
-  //the X axis position of the blocks can fall anywhere within the width of the users window.
+//the X axis position of the blocks can fall anywhere within the width of the users window.
   this.$positionX = Math.floor(Math.random()*($(window).width()-150));
-  //blockTimer uses the generated value for interval to intermittently introduce a new block
+//blockTimer uses the generated value for interval to intermittently introduce a new block
   this.blockTimer = setTimeout(function () {
 //create a 'block' as a div appended to the element '.space'.
     wordGame.$block = $('<div/>').appendTo('.space').addClass(`block`);
@@ -127,7 +123,7 @@ wordGame.randomValues = function(){
 //_____________________________________________________________________
 //giveAttribute assigns value to each block based on an if statement looking for the length of the three levels arrays.
 wordGame.giveAttribute = function(){
-  //Re-envoke randomValues to generate a different set of properties for the following block.
+//Re-envoke randomValues to generate a different set of properties for the following block.
   this.randomValues();
 
 //_______EASY___________________________________________________________
@@ -152,7 +148,9 @@ wordGame.giveAttribute = function(){
     this.timer1 = setTimeout(function(){
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       console.log('delay');
+//A two second delay between levels.
     }, 2000);
+
 //________MEDIUM__________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
   }else if (this.medium.length >= 70) {
@@ -273,6 +271,7 @@ wordGame.submitText = function(){
     new Audio('sounds/Blop-Mark_DiAngelo-79054334.wav').play();
 //Delete contects in input box
     this.inputText.val('');
+//Delete inout and make sound if the input letter does not equal the current word letter.
   }else if(this.$letterArray[0] !== this.inputText.val().toUpperCase() && this.inputText.val().length !== 0){
     new Audio('sounds/wrong_answer.mp3').play();
     this.inputText.val('');
@@ -298,9 +297,13 @@ wordGame.end = function(){
   clearTimeout(wordGame.blockTimer);
 
 //store the highscore locally so it stays on refresh of the page.
+//Define highscore to either equal or, if found, the value of highscore from localStorage
   this.highScore = localStorage.getItem('highScore') || 0;
+//Check the completed game score with the value for highscore.
   if (this.score > this.highScore){
+//Convert the score into highscore.
     this.highScore = parseInt(this.score);
+//Set the value of highscore on localStorage to be the new value.
     localStorage.setItem('highScore', this.highScore);
   }
 
@@ -324,8 +327,6 @@ wordGame.end = function(){
     wordGame.$playAgain.remove();
     wordGame.$gameOver.remove();
     wordGame.$highScore.remove();
-
-    // $('.top').css('background-image', 'url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_3.png)').fadeIn(2000);
 
   });
 
