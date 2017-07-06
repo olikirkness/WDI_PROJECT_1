@@ -131,7 +131,7 @@ wordGame.giveAttribute = function(){
 //_______EASY___________________________________________________________
 //if statement defines which array to pull words from and assigns the word to the block.
 //Each statement will continue until the level array is less than the value stated.
-  if(this.easy.length >= 570){
+  if(this.easy.length >= 548){
 //Find a word from the easy array at random.
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
 //store that word as '$currentEasyWord'
@@ -147,7 +147,7 @@ wordGame.giveAttribute = function(){
 
 //________MEDIUM________________________________________________________
 //If the easy array is less than 548 elements long, the following will run.
-  }else if (this.medium.length >= 97) {
+  }else if (this.medium.length >= 73) {
 //at this stage the user is on level 2, therefore update the text in the .level class to '2'
     this.level.text('2');
 //Find a word from the medium array at random.

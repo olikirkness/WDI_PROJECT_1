@@ -106,7 +106,7 @@ input{
 }
 
 .top{
-  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/clouds_6.png);
+  background-image: url(http://i.imgur.com/klVpOez.png);
   height: 230px;
   width: 100%;
   top: -60px;
@@ -119,7 +119,7 @@ input{
 }
 
 .base{
-  background-image: url(file:///Users/Oli/Development/WDI_PROJECT_1/images/ground.png);
+  background-image: url(http://i.imgur.com/oOmxHCD.png);
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
