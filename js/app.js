@@ -73,7 +73,7 @@ wordGame.giveAttribute = function(){
 
   this.randomValues();
 
-  if(this.easy.length >= 556){
+  if(this.easy.length >= 570){
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
     this.$currentEasyWord = this.easy[this.$easyIndex];
     this.easy.splice(this.$easyIndex, 1);
@@ -81,13 +81,13 @@ wordGame.giveAttribute = function(){
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#60c426'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
-  }else if(this.easy.length === 555){
+  }else if(this.easy.length === 569){
     this.timer1 = setTimeout(function(){
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       console.log('delay');
     }, 2000);
 
-  }else if (this.medium.length >= 83) {
+  }else if (this.medium.length >= 93) {
     this.$speed = this.$speed - 500;
 
     this.level.text('2');
@@ -98,7 +98,7 @@ wordGame.giveAttribute = function(){
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#878E88'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
-  }else if(this.medium.length === 82){
+  }else if(this.medium.length === 92){
 
     this.timer1 = setTimeout(function(){
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
