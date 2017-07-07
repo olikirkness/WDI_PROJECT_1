@@ -60,7 +60,7 @@ wordGame.newGame = function(){
 };
 
 wordGame.randomValues = function(){
-  this.$speed = Math.floor(Math.random()*3000+10000);
+  this.$speed = Math.floor(Math.random()*3000+12000);
   this.$interval = Math.floor(Math.random()*1500+800);
   this.$positionX = Math.floor(Math.random()*($(window).width()-150));
   this.blockTimer = setTimeout(function () {
@@ -73,7 +73,7 @@ wordGame.giveAttribute = function(){
 
   this.randomValues();
 
-  if(this.easy.length >= 570){
+  if(this.easy.length >= 545){
     this.$easyIndex = Math.floor(Math.random()*((this.easy).length));
     this.$currentEasyWord = this.easy[this.$easyIndex];
     this.easy.splice(this.$easyIndex, 1);
@@ -81,14 +81,14 @@ wordGame.giveAttribute = function(){
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#60c426'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
-  }else if(this.easy.length === 569){
+  }else if(this.easy.length === 544){
     this.timer1 = setTimeout(function(){
       wordGame.easy.splice(wordGame.$easyIndex, 1);
       console.log('delay');
     }, 2000);
 
-  }else if (this.medium.length >= 93) {
-    this.$speed = this.$speed - 500;
+  }else if (this.medium.length >= 73) {
+    this.$speed = this.$speed - 2500;
 
     this.level.text('2');
     this.$mediumIndex = Math.floor(Math.random()*(this.medium).length);
@@ -98,7 +98,7 @@ wordGame.giveAttribute = function(){
     this.$blockWord = this.usedWordArray[this.usedWordArray.length-1];
     this.$block.css({'left': this.$positionX+'px', 'background-color': '#878E88'}).html(`${this.$blockWord}`).animate({'margin-top': `${$(window).height()}`},this.$speed);
 
-  }else if(this.medium.length === 92){
+  }else if(this.medium.length === 72){
 
     this.timer1 = setTimeout(function(){
       wordGame.medium.splice(wordGame.$mediumIndex, 1);
@@ -106,7 +106,7 @@ wordGame.giveAttribute = function(){
     }, 4000);
 
   }else if (this.hard.length > 0) {
-    this.$speed = this.$speed - 1000;
+    this.$speed = this.$speed - 3000;
     this.level.text('3');
     this.$hardIndex = Math.floor(Math.random()*(this.hard).length);
     this.$currentHardWord = this.hard[this.$hardIndex];
