@@ -23,7 +23,7 @@ I am very pleased with what I achieved over the period of one week after having 
 ![Screen Shot 2](http://i.imgur.com/BsB6PX1.png)
 ![Screen Shot 1](http://i.imgur.com/CP0v66Q.png)
 
-##Future Improvements
+## Future Improvements
 
 1. Add intructions.
 2. Improve styling.
